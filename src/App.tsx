@@ -1,11 +1,19 @@
 import React from 'react';
+import { Navbar} from "./components/Navbar";
+import { Footer } from './components/Footer';
+import { ShelterProfile } from './components/ShelterProfile';
 
 function App() {
   return (
-    <div>
-      <h1>Animal shelter</h1>
-      <p>Everybody may have a famaly :3</p>
-    </div>
+    <>
+    <Navbar />
+
+      <div>
+        <ShelterProfile />
+      </div>
+
+      <Footer/>
+    </>
   );
 }
 
