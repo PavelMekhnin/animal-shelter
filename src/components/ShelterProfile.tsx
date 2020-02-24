@@ -1,6 +1,6 @@
 import React from "react";
 import { AnimalCardPreview } from "./AnimalCardPreview";
-import { IAnimalCard } from "../interfaces/IAnimalCard";
+import { IAnimalCard } from "../interfaces/Interfaces";
 
 export const ShelterProfile: React.FC = () => {
     const cards: IAnimalCard = {

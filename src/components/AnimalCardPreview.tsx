@@ -1,5 +1,5 @@
 import React from "react";
-import { IAnimalCard } from "../interfaces/IAnimalCard";
+import { IAnimalCard } from "../interfaces/Interfaces";
 
 type AnimalCardProps = {
     card : IAnimalCard

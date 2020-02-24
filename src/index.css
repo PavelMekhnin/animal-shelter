@@ -20,6 +20,30 @@ code {
 .profile-bg{
   height: 200px;
 }
+.home-block-header{
+  background-image: url(./images/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 450px;
+  color: azure;
+  display: grid;
+}
+
+h1{
+  text-transform: uppercase;
+}
+
+.home-block-body{
+  height: 400px;
+}
+
+.promo-icon{
+  color: darkorange;
+}
+
+.no-padding{
+  padding: 0 0 0 0;
+}
 
 img.bg {
   /* Set rules to fill background */
