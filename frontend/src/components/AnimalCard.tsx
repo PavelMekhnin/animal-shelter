@@ -16,9 +16,9 @@ export const AnimalCard: React.FC = () => {
         name: 'Лёлик',
         race: 'дворняжка',
         needs: [
-            { id: 1, capture: 'лекарства', description: 'desc', isDone: false, count: 10 },
-            { id: 2, capture: 'подкормка', description: 'desc', isDone: false, count: 2 },
-            { id: 3, capture: 'сено', description: 'desc', isDone: false, count: 1 },
+            { id: 1, title: 'лекарства', description: 'desc', isDone: false, count: 10 },
+            { id: 2, title: 'подкормка', description: 'desc', isDone: false, count: 2 },
+            { id: 3, title: 'сено', description: 'desc', isDone: false, count: 1 },
         ],
         volunteers: [{
             firstName: "Pavel",

@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { Footer } from './components/Footer';
 import { ShelterProfile } from './components/ShelterProfile';
@@ -8,16 +9,21 @@ import { ShelterList } from './components/ShelterList';
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <header>
         <Navbar />
       </header>
       <main className="cont">
         <div className='row'></div>
-        <ShelterProfile />
+        <Switch>
+          <Route component={Home} path="/" exact></Route>
+          <Route component={ShelterList} path="/search" exact></Route>
+          <Route component={ShelterProfile} path="/shelter/:id" exact></Route>
+          <Route component={AnimalCard} path="/shelter/:id/pet/:petid" exact></Route>
+        </Switch>
       </main>
       <Footer />
-    </>
+    </BrowserRouter>
   );
 }
 

@@ -10,7 +10,7 @@ export const ShelterList: React.FC = () => {
 
     const listData: ShelterListData = {
         list: [{
-            addres: "adres",
+            address: "adres",
             animal_count: 76,
             id: 1,
             logo_url: "",

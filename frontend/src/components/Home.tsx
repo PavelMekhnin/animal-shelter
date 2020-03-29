@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const Home: React.FC = () => {
 
@@ -12,8 +13,8 @@ export const Home: React.FC = () => {
                     <h5>Lets make their life happy and they will never forget it</h5>
                 </div>
                 <div className="row">
-                    <a className="waves-effect waves-light btn orange">
-                        <i className="material-icons right">near_me</i>Find a shelter nearby</a>
+                    <Link className="waves-effect waves-light btn orange" to="/search">
+                        <i className="material-icons right">near_me</i>Find a shelter nearby</Link>
                 </div>
             </div>
             <div className="home-block-body container valign-wrapper">

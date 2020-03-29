@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useHistory } from "react-router-dom";
 import { IAnimalCard } from "../interfaces/Interfaces";
 
 type AnimalCardProps = {
@@ -6,7 +7,7 @@ type AnimalCardProps = {
 }
 
 export const AnimalCardPreview: React.FC<AnimalCardProps> = (card) => {
-
+    const history = useHistory();
     return (
         <div className="animal-card">
             <div className="row">
@@ -17,7 +18,7 @@ export const AnimalCardPreview: React.FC<AnimalCardProps> = (card) => {
                         </div>
                         <div className="card-content">
                             <span className="card-title grey-text text-darken-4">{card.card.name}</span>
-                            <p><a href="#">Пдробнее</a></p>
+                            <p><Link to="/shelter/1/pet/1">Пдробнее</Link></p>
                         </div>
                     </div>
                 </div>
