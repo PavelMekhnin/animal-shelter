@@ -25,7 +25,7 @@ export interface IVolunteerCard {
 }
 
 export interface INeed {
-    capture: string,
+    title: string,
     count: number,
     description: string,
     id: number,
@@ -35,7 +35,7 @@ export interface INeed {
 export interface IShelterCard {
     title: string,
     description: string,
-    addres: string,
+    address: string,
     img_url: string,
     cover_url: string,
     id: number,
@@ -48,7 +48,7 @@ export interface IShelterCard {
 export interface IShelterCardPreview {
     id: number,
     title: string,
-    addres: string,
+    address: string,
     logo_url: string,
     animal_count: number,
     volunteer_count: number

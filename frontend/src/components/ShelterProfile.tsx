@@ -7,7 +7,7 @@ import { AnimalNeeds } from "./AnimalNeeds";
 
 export const ShelterProfile: React.FC = () => {
     const profile: IShelterCard = {
-        addres: 'Клин, Московская обл.',
+        address: 'Клин, Московская обл.',
         cover_url: 'https://sun9-52.userapi.com/c850016/v850016567/1bc460/ubjbr2z4hc4.jpg',
         description: 'приют для лоашдей',
         id: 1,
@@ -24,9 +24,9 @@ export const ShelterProfile: React.FC = () => {
             race: 'дворняжка',
             volunteers: []
         }],
-        needs: [{ id: 1, capture: 'лекарства', description: 'desc', isDone: false, count: 10 },
-        { id: 2, capture: 'подкормка', description: 'desc', isDone: false, count: 2 },
-        { id: 3, capture: 'сено', description: 'desc', isDone: false, count: 1 },],
+        needs: [{ id: 1, title: 'лекарства', description: 'desc', isDone: false, count: 10 },
+        { id: 2, title: 'подкормка', description: 'desc', isDone: false, count: 2 },
+        { id: 3, title: 'сено', description: 'desc', isDone: false, count: 1 },],
         volunteers: [],
         contacts: []
     }
@@ -43,7 +43,7 @@ export const ShelterProfile: React.FC = () => {
                     <div className="row">
                         <div className="left-info-block">
                             <span>Адрес</span>
-                            <h6>{profile.addres}</h6>
+                            <h6>{profile.address}</h6>
                         </div>
                     </div>
                     <div className="row"><ContactsBlock list={profile.contacts}></ContactsBlock></div>

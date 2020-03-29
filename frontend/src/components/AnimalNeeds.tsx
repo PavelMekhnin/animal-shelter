@@ -14,7 +14,7 @@ export const AnimalNeeds: React.FC<AnimalNeedsProps> = ({ list }) => {
                     <li id={need.id.toString()}>
                         <div className="collapsible-header">
                             <i className="material-icons">local_hospital</i>
-                            {need.capture}
+                            {need.title}
                             <span className="badge">{need.count}</span></div>
                         <div className="collapsible-body"><p>{need.description}</p></div>
                     </li>

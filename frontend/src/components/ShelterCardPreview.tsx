@@ -16,7 +16,7 @@ export const ShelterCardPreview: React.FC<ShelterCardProps> = (card) => {
                     </div>
                     <div className="col s10">
                         <span className="black-text">
-                            {card.card.title}, Адрес: {card.card.addres}
+                            {card.card.title}, Адрес: {card.card.address}
                         </span>
                     </div>
                 </div>
