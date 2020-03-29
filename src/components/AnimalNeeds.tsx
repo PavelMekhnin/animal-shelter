@@ -1,22 +1,22 @@
 import React from "react";
-import { IAnimalNeed } from "../interfaces/Interfaces";
+import { INeed } from "../interfaces/Interfaces";
 
 
 type AnimalNeedsProps = {
-    needs: IAnimalNeed[]
+    list: INeed[]
 }
-export const AnimalNeeds: React.FC<AnimalNeedsProps> = ({ needs }) => {
+export const AnimalNeeds: React.FC<AnimalNeedsProps> = ({ list }) => {
 
     return (
         <ul className="collapsible">
-            {needs.map(need => {
+            {list.map(need => {
                 return (
                     <li id={need.id.toString()}>
                         <div className="collapsible-header">
                             <i className="material-icons">local_hospital</i>
                             {need.capture}
-      <span className="badge">{need.count}</span></div>
-                <div className="collapsible-body"><p>{need.description}</p></div>
+                            <span className="badge">{need.count}</span></div>
+                        <div className="collapsible-body"><p>{need.description}</p></div>
                     </li>
                 )
             })}

@@ -17,8 +17,43 @@ code {
   padding-right: 1rem;
 }
 
+.cont{
+  min-width: 960px;
+}
+
 .profile-bg{
   height: 200px;
+}
+.col .row{
+  margin: 0rem;
+}
+.profile-left{
+  height: auto;
+}
+.left-info-block{
+  overflow-wrap: break-word;
+}
+
+.cover-img{
+  height: 15rem;
+  width: 100%;
+  background-size:cover;
+  background-position:center;
+}
+
+.logo-img{
+  object-fit: cover;
+  height: 200px;
+  width: 200px;
+  margin-top: -100px;
+}
+
+.left-info-block span{
+    text-decoration: underline;
+    color: gray;
+}
+.left-info-block h5{
+  margin-top: 0rem;
 }
 .home-block-header{
   background-image: url(./images/background.jpg);
@@ -28,7 +63,13 @@ code {
   color: azure;
   display: grid;
 }
-
+.image-cropper {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
 h1{
   text-transform: uppercase;
 }
@@ -59,3 +100,4 @@ img.bg {
   top: 0;
   left: 0;
 }
+

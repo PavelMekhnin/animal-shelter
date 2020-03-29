@@ -8,7 +8,7 @@ type VolunteerCardProps = {
 export const VolunteerCardPreview: React.FC<VolunteerCardProps> = (card) => {
 
     return (
-        <div className="col s12 m8 offset-m2 l6 offset-l3">
+        <div className="col s12 m8 l6">
             <div className="card-panel grey lighten-5 z-depth-1">
                 <div className="row valign-wrapper">
                     <div className="col s2">
