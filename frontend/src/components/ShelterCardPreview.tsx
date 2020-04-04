@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { IVolunteerCard, IShelterCard, IShelterCardPreview } from "../interfaces/Interfaces";
+import { IShelterCard } from "../interfaces/Interfaces";
 
 type ShelterCardProps = {
-    card: IShelterCardPreview
+    card: IShelterCard
 }
 
 export const ShelterCardPreview: React.FC<ShelterCardProps> = (card) => {
@@ -14,7 +14,7 @@ export const ShelterCardPreview: React.FC<ShelterCardProps> = (card) => {
                 <Link to="/shelter/1">
                     <div className="row valign-wrapper">
                         <div className="col s2">
-                            <img src={card.card.logo_url} alt="" className="circle responsive-img" />
+                            <img src={card.card.img_url} alt="" className="circle responsive-img" />
                         </div>
                         <div className="col s10">
                             <span className="black-text">

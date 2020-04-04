@@ -1,57 +1,42 @@
 import React from "react";
-import { VolunteerCardPreview } from "./VolunteerCardPreview";
-import { IVolunteerCard, IAnimalCard } from "../interfaces/Interfaces";
-import { useState } from "react";
+import { useParams as params} from "react-router-dom";
 import { VolunteerCardList } from "./VolunteerCardList";
 import { AnimalNeeds } from "./AnimalNeeds";
+import { AppState } from "../reducers/rootReducer";
+import { connect } from "react-redux";
+import { Page404 } from "./404";
 
-export const AnimalCard: React.FC = () => {
-
-    const card: IAnimalCard = {
-        bio: 'bio',
-        img_url: 'https://3.404content.com/1/CD/21/1202057187605349659/fullsize.jpg',
-        description: 'description',
-        age: 15,
-        id: 1,
-        name: 'Лёлик',
-        race: 'дворняжка',
-        needs: [
-            { id: 1, title: 'лекарства', description: 'desc', isDone: false, count: 10 },
-            { id: 2, title: 'подкормка', description: 'desc', isDone: false, count: 2 },
-            { id: 3, title: 'сено', description: 'desc', isDone: false, count: 1 },
-        ],
-        volunteers: [{
-            firstName: "Pavel",
-            lastName: "Mekhnin",
-            id: 1,
-            img_url: "",
-            phone: "+7 (913) 715 67 48"
-        }]
+const AnimalCard: React.FC<Props> = ({animal}) => {
+    console.log(animal);
+    if(animal == null){
+        return(
+            <Page404></Page404>
+        )
     }
-
+    
     return (
         <div className="container">
             <div className="row">
                 <div className="col s3 grey lighten-5 center-align profile-left">
                     <div className="row">
-                        <img className="responsive-img" src={card.img_url} />
+                        <img className="responsive-img" src={animal.img_url} />
                     </div>
                     <div className="row">
                         <div className="left-info-block">
                             <span>Имя</span>
-                            <h6>{card.name}</h6>
+                            <h6>{animal.name}</h6>
                         </div>
                     </div>
                     <div className="row">
                         <div className="left-info-block">
                             <span>Возраст</span>
-                            <h6>{card.age} лет</h6>
+                            <h6>{animal.age} лет</h6>
                         </div>
                     </div>
                     <div className="row">
                         <div className="left-info-block">
                             <span>Порода</span>
-                            <h6>{card.race}</h6>
+                            <h6>{animal.race}</h6>
                         </div>
                     </div>
                 </div>
@@ -59,18 +44,48 @@ export const AnimalCard: React.FC = () => {
 
                     <div className="row">
                         <h5>О питомце</h5>
-                        <p>{card.bio}</p>
+                        <p>{animal.bio}</p>
                     </div>
                     <div className="row">
                         <h5>Кураторы</h5>
-                        <VolunteerCardList list={card.volunteers} />
+                        <VolunteerCardList list={animal.volunteers} />
                     </div>
                     <div className="row">
                         <h5>Нужды</h5>
-                        <AnimalNeeds list={card.needs}></AnimalNeeds>
+                        <AnimalNeeds list={animal.needs}></AnimalNeeds>
                     </div>
                 </div>
             </div>
         </div>
     )
 }
+
+interface RouteParams {
+    shelterid: string,
+    animalid: string,
+}
+const mapStateToProps = (state: AppState) => {
+    const route = params<RouteParams>();
+
+    console.log(route.shelterid);
+    
+    const shelters = state.shelters.shelters.filter(x => x.id.toString() == route.shelterid);
+
+    if(shelters.length == 0){
+        return null;
+    }
+    let shelter = shelters[0];
+
+    let animal = shelter.animals.filter(x => x.id.toString() == route.animalid);
+
+    if(animal.length == 0){
+        return null;
+    }
+
+    return {
+        animal: animal[0]
+    }
+}
+type Props  = ReturnType<typeof mapStateToProps>;
+
+export default connect(mapStateToProps, null)(AnimalCard);
