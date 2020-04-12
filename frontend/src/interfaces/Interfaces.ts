@@ -5,7 +5,7 @@ export interface IAnimalCard {
     age: number,
     description: string,
     id: number
-    img_url: string
+    imgUrl: string
     needs: INeed[],
     volunteers: IVolunteerCard[]
 }
@@ -20,7 +20,7 @@ export interface IVolunteerCard {
     firstName: string,
     lastName: string,
     id: number,
-    img_url: string,
+    imgUrl: string,
     phone: string
 }
 
@@ -36,8 +36,8 @@ export interface IShelterCard {
     title: string,
     description: string,
     address: string,
-    img_url: string,
-    cover_url: string,
+    logoUrl: string,
+    coverUrl: string,
     id: number,
     animals: IAnimalCard[],
     volunteers: IVolunteerCard[],
@@ -49,7 +49,7 @@ export interface IShelterCardPreview {
     id: number,
     title: string,
     address: string,
-    logo_url: string,
-    animal_count: number,
-    volunteer_count: number
+    logoUrl: string,
+    animalCount: number,
+    volunteerCount: number
 }

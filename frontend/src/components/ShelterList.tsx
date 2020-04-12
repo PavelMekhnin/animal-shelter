@@ -1,32 +1,62 @@
-import React from "react";
+import React, { Dispatch, useEffect } from "react";
 import { AppState } from "../reducers/rootReducer";
 import { ShelterCardPreview } from "./ShelterCardPreview";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { fetchShelters } from "../actions/shelterActions";
+import { bindActionCreators, AnyAction } from "redux";
 
-const ShelterList: React.FC<Props> = (shelters: Props) => {
+const ShelterList: React.FC<Props> = ({ shelters, fetch, loading }) => {
+    fetch()
+
     return (
         <div className="container">
             <div className="row">
-                <input type="search" name="" id="search" />
+                <input type="search" name="" id="search" placeholder="Поиск..." />
             </div>
-            <div className="row">
-                {
-                    shelters.shelters.map(x => {
-                        return (
-                            <ShelterCardPreview card={x} key={x.id}></ShelterCardPreview>
-                        )
-                    })
-                }
-            </div>
+            {
+                loading  == false ? (
+                    <div className="row">
+                        {
+                            shelters.length == 0 ? (
+                                <h1>Ничег оне найдено :(</h1>
+                            )
+                                :
+                                (
+                                    shelters.map(x => {
+                                        return (
+                                            <ShelterCardPreview card={x} key={x.id}></ShelterCardPreview>
+                                        )
+                                    })
+                                )
+
+                        }
+                    </div>
+                ) : (
+                        <div className="container">
+                            <div className="progress">
+                                <div className="indeterminate"></div>
+                            </div>
+                        </div>
+                    )
+            }
         </div>
     )
 }
 
 const mapStateToProps = (state: AppState) => {
     return {
-        shelters: state.shelters.shelters
+        shelters: state.shelters.shelters,
+        loading: false
     }
 }
-type Props  = ReturnType<typeof mapStateToProps>;
 
-export default connect(mapStateToProps, null)(ShelterList);
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+    fetch: () => {
+        dispatch(fetchShelters());
+    }
+})
+
+
+type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShelterList);

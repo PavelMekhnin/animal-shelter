@@ -1,8 +1,12 @@
 import { combineReducers } from "redux";
-import { shelterReduces } from "./shelterReducer";
+import { shelterReducer } from "./shelterReducer";
+import { animalReducer } from "./animalReducer";
+import { appReducer } from "./appReducer";
 
 export const rootReducer = combineReducers({
-    shelters: shelterReduces
+    shelters: shelterReducer,
+    animals: animalReducer,
+    app : appReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

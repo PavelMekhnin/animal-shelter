@@ -12,7 +12,7 @@ export const VolunteerCardPreview: React.FC<VolunteerCardProps> = (card) => {
             <div className="card-panel grey lighten-5 z-depth-1">
                 <div className="row valign-wrapper">
                     <div className="col s2">
-                        <img src={card.card.img_url} alt="" className="circle responsive-img" />
+                        <img src={card.card.imgUrl} alt="" className="circle responsive-img" />
                     </div>
                     <div className="col s10">
                         <span className="black-text">

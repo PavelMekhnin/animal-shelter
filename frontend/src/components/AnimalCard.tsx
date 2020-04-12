@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useParams as params} from "react-router-dom";
 import { VolunteerCardList } from "./VolunteerCardList";
 import { AnimalNeeds } from "./AnimalNeeds";
 import { AppState } from "../reducers/rootReducer";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Page404 } from "./404";
+import { fetchAnimal } from "../actions/animalAction";
+import { Dispatch } from "redux";
+import { IAnimalCard } from "../interfaces/Interfaces";
+import { callbackify } from "util";
 
-const AnimalCard: React.FC<Props> = ({animal}) => {
-    console.log(animal);
-    if(animal == null){
-        return(
-            <Page404></Page404>
+const AnimalCard: React.FC<Props> = ({animal, loading, fetch}) => {
+
+    fetch();
+
+    if(animal.id == null){
+        if(loading == false){
+            return(
+                <Page404></Page404>
+            )
+        }
+        return (
+            <div className="container">
+                <div className="progress">
+                    <div className="indeterminate"></div>
+                </div>
+            </div>
         )
     }
     
@@ -19,7 +34,7 @@ const AnimalCard: React.FC<Props> = ({animal}) => {
             <div className="row">
                 <div className="col s3 grey lighten-5 center-align profile-left">
                     <div className="row">
-                        <img className="responsive-img" src={animal.img_url} />
+                        <img className="responsive-img" src={animal.imgUrl} />
                     </div>
                     <div className="row">
                         <div className="left-info-block">
@@ -64,28 +79,30 @@ interface RouteParams {
     shelterid: string,
     animalid: string,
 }
-const mapStateToProps = (state: AppState) => {
-    const route = params<RouteParams>();
 
-    console.log(route.shelterid);
-    
-    const shelters = state.shelters.shelters.filter(x => x.id.toString() == route.shelterid);
+interface mapStateToPropsType {
+    animal: IAnimalCard,
+    loading : boolean
+}
 
-    if(shelters.length == 0){
-        return null;
-    }
-    let shelter = shelters[0];
-
-    let animal = shelter.animals.filter(x => x.id.toString() == route.animalid);
-
-    if(animal.length == 0){
-        return null;
-    }
-
-    return {
-        animal: animal[0]
+const mapStateToProps = (state: AppState) : mapStateToPropsType=> {
+    return{
+        animal: state.animals.animal,
+        loading: state.app.loading
     }
 }
-type Props  = ReturnType<typeof mapStateToProps>;
 
-export default connect(mapStateToProps, null)(AnimalCard);
+interface mapDispatchToPropsType {
+    fetch: () => void;
+}
+
+const mapDispatchToProps = (dispatch: Dispatch<any>) : mapDispatchToPropsType => ({
+    fetch : () => {
+        const route = params<RouteParams>();
+        dispatch(fetchAnimal(route.shelterid, route.animalid));
+    }
+})
+
+type Props  = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+
+export default connect(mapStateToProps, mapDispatchToProps as any)(AnimalCard);

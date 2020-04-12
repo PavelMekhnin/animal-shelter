@@ -3,10 +3,11 @@ import { IAnimalCard } from '../interfaces/Interfaces';
 import { AnimalCardPreview } from './AnimalCardPreview';
 
 type AnimalList = {
-    list: IAnimalCard[]
+    list: IAnimalCard[],
+    shelterId : string
 }
 
-export const AnimalCardList: React.FC<AnimalList> = ({ list }) => {
+export const AnimalCardList: React.FC<AnimalList> = ({ list , shelterId}) => {
     if (list.length == 0) {
         return (<span>На настоящий момент у приюта нет питомцев :(</span>)
     }
@@ -15,7 +16,7 @@ export const AnimalCardList: React.FC<AnimalList> = ({ list }) => {
             {list.map(card => {
                 return (
                     <div className="col s6">
-                        <AnimalCardPreview card={card}></AnimalCardPreview>
+                        <AnimalCardPreview card={card} shelterId={shelterId} key={card.id}></AnimalCardPreview>
                     </div>
                 )
             })

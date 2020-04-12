@@ -1,28 +1,41 @@
-import { useParams as params} from "react-router-dom";
-import React from "react";
+import { useParams as params } from "react-router-dom";
+import React, { Component, useEffect, useState } from "react";
 import { IShelterCard } from "../interfaces/Interfaces";
 import { AnimalCardList } from "./AnimalCardList";
 import { ContactsBlock } from "./ContactsBlock";
 import { AnimalNeeds } from "./AnimalNeeds";
 import { AppState } from "../reducers/rootReducer";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Page404 } from "./404";
+import { fetchShelter } from "../actions/shelterActions";
+import { Dispatch, compose } from "redux";
 
-const ShelterProfile: React.FC<Props> = ({shelter}) => {
-    if(shelter == null){
-        return(
-            <Page404></Page404>
+export const ShelterProfile: React.FC<Props> = ({ shelter, loading, fetch }) => {
+    fetch();
+
+    if (shelter.id == null) {
+        if (loading == false) {
+            return (
+                <Page404></Page404>
+            )
+        }
+        return (
+            <div className="container">
+                <div className="progress">
+                    <div className="indeterminate"></div>
+                </div>
+            </div>
         )
     }
 
     return (
         <div className="container">
             <div className="row">
-                <div className="cover-img" style={{ backgroundImage: "url(" + shelter.cover_url + ")" }}></div>
+                <div className="cover-img" style={{ backgroundImage: "url(" + shelter.coverUrl + ")" }}></div>
             </div>
             <div className="row">
                 <div className="col s3 grey lighten-5 center-align">
-                    <img className="circle logo-img z-depth-2" src={shelter.img_url} alt="" />
+                    <img className="circle logo-img z-depth-2" src={shelter.logoUrl} alt="" />
                     <div className="row"><h5>{shelter.title}</h5></div>
                     <div className="row">
                         <div className="left-info-block">
@@ -40,7 +53,7 @@ const ShelterProfile: React.FC<Props> = ({shelter}) => {
                     </div>
                     <div className="row">
                         <h5>Питомцы</h5>
-                        <AnimalCardList list={shelter.animals}></AnimalCardList>
+                        <AnimalCardList list={shelter.animals} shelterId={shelter.id.toString()}></AnimalCardList>
                     </div>
                     <div className="row">
                         <h5>Нужды</h5>
@@ -56,20 +69,19 @@ interface RouteParams {
     shelterid: string
 }
 const mapStateToProps = (state: AppState) => {
-    const route = params<RouteParams>();
-
-    console.log(route.shelterid);
-    
-    const shelters = state.shelters.shelters.filter(x => x.id.toString() == route.shelterid);
-
-    if(shelters.length == 0){
-        return null;
-    }
-    
     return {
-        shelter: shelters[0]
+        shelter: state.shelters.currentShelter,
+        loading: state.app.loading
     }
 }
-type Props  = ReturnType<typeof mapStateToProps>;
 
-export default connect(mapStateToProps, null)(ShelterProfile);
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+    fetch: () => {
+        const route = params<RouteParams>();
+        dispatch(fetchShelter(route.shelterid));
+    }
+})
+
+type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+
+export default connect(mapStateToProps, mapDispatchToProps as any)(ShelterProfile);

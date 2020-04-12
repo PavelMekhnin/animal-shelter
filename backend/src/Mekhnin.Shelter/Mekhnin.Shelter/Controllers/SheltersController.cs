@@ -20,11 +20,20 @@ namespace Mekhnin.Shelter.Controllers
             {
                 new ShelterCardPreview()
                 {
-                    Address = "г. Клин, Московская Обл.",
-                    AnimalCount = 76,
                     Id = 1,
-                    LogoUrl = "https://sun9-7.userapi.com/c852016/v852016218/18ef1f/Ne6MaHZrJaA.jpg",
                     Title = "Шанс на жизнь",
+                    LogoUrl = "https://sun9-7.userapi.com/c852016/v852016218/18ef1f/Ne6MaHZrJaA.jpg",
+                    Address = "г. Клин, Московская Обл.",
+                    AnimalCount = 72,
+                    VolunteerCount = 12
+                },
+                new ShelterCardPreview()
+                {
+                    Id = 1,
+                    Title = "Дуровая роща",
+                    LogoUrl = "https://sun9-7.userapi.com/c852016/v852016218/18ef1f/Ne6MaHZrJaA.jpg",
+                    Address = "г. Москва",
+                    AnimalCount = 720,
                     VolunteerCount = 12
                 }
             };
@@ -87,7 +96,7 @@ namespace Mekhnin.Shelter.Controllers
                         Description = "для лелика"
                     },
                 },
-                Volunteers =
+                Volunteers = new List<VolunteerCardPreview>()
                 {
                     new VolunteerCardPreview()
                     {
