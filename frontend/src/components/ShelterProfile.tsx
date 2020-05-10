@@ -1,17 +1,24 @@
-import { useParams as params } from "react-router-dom";
-import React, { Component, useEffect, useState } from "react";
+import { useParams as params, Route, Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { IShelterCard } from "../interfaces/Interfaces";
 import { AnimalCardList } from "./AnimalCardList";
 import { ContactsBlock } from "./ContactsBlock";
 import { AnimalNeeds } from "./AnimalNeeds";
 import { AppState } from "../reducers/rootReducer";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { Page404 } from "./404";
 import { fetchShelter } from "../actions/shelterActions";
-import { Dispatch, compose } from "redux";
+import { Dispatch } from "redux";
+import AnimalCard from "./AnimalCard";
+import { VolunteerCardList } from "./VolunteerCardList";
 
 export const ShelterProfile: React.FC<Props> = ({ shelter, loading, fetch }) => {
-    fetch();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    if (!isLoading) {
+        fetch();
+        setIsLoading(true);
+    }
 
     if (shelter.id == null) {
         if (loading == false) {
@@ -37,29 +44,69 @@ export const ShelterProfile: React.FC<Props> = ({ shelter, loading, fetch }) => 
                 <div className="col s3 grey lighten-5 center-align">
                     <img className="circle logo-img z-depth-2" src={shelter.logoUrl} alt="" />
                     <div className="row"><h5>{shelter.title}</h5></div>
+
+                    <hr></hr>
                     <div className="row">
                         <div className="left-info-block">
-                            <span>Адрес</span>
+                            <i className="material-icons">location_on</i>
                             <h6>{shelter.address}</h6>
                         </div>
                     </div>
-                    <div className="row"><ContactsBlock list={shelter.contacts}></ContactsBlock></div>
-                </div>
+                    <hr></hr>
+                    <div className="row">
+                        <ContactsBlock list={shelter.contacts}></ContactsBlock>
+                    </div>
 
-                <div className="col s9">
-                    <div className="row">
-                        <h5>О нас</h5>
-                        <p>{shelter.description}</p>
-                    </div>
-                    <div className="row">
-                        <h5>Питомцы</h5>
-                        <AnimalCardList list={shelter.animals} shelterId={shelter.id.toString()}></AnimalCardList>
-                    </div>
-                    <div className="row">
-                        <h5>Нужды</h5>
-                        <AnimalNeeds list={shelter.needs}></AnimalNeeds>
-                    </div>
+                    <hr></hr>
                 </div>
+                <div className="col s9">
+                    <ShelterTabs shelter={shelter}></ShelterTabs>
+                </div>
+            </div>
+        </div>
+    )
+}
+type ShelterHomeTabProps = {
+    shelter: IShelterCard
+}
+const ShelterHomeTab: React.FC<ShelterHomeTabProps> = ({ shelter }) => {
+    return (
+        <>
+            <div className="row">
+                <h5 className="center-align">Немного о приюте</h5>
+                <p>{shelter.description}</p>
+            </div>
+        </>
+    )
+}
+
+const ShelterTabs: React.FC<ShelterHomeTabProps> = ({ shelter }) => {
+    useEffect(() => {
+        const script = document.createElement("script");
+
+        script.src = "/elements.js";
+        script.async = true;
+        var scriptNode = document.getElementById("tab-script");
+        scriptNode!.innerHTML = "";
+        scriptNode!.appendChild(script);
+    })
+
+    return (
+        <div id="tabs">
+            <ul className="tabs tabs-icon">
+                <li className="tab col s3"><a href="#home" className="active"><i className="material-icons">help</i>О нас</a></li>
+                <li className="tab col s3"><a href="#pets" ><i className="material-icons">apps</i>Питомцы</a></li>
+                <li className="tab col s3"><a href="#needs" ><i className="material-icons">format_list_bulleted</i>Нужды</a></li>
+                <li className="tab col s3"><a href="#volunteers" ><i className="material-icons">group</i>Волантеры</a></li>
+            </ul>
+
+            <div id="home" className="col s12"><ShelterHomeTab shelter={shelter}></ShelterHomeTab></div>
+            <div id="pets" className="col s12"><AnimalCardList list={shelter.animals} shelterId={shelter.id.toString()}></AnimalCardList></div>
+            <div id="needs" className="col s12"><AnimalNeeds list={shelter.needs} ></AnimalNeeds></div>
+            <div id="volunteers" className="col s12"><VolunteerCardList list={shelter.volunteers} ></VolunteerCardList></div>
+
+            <div id="tab-script">
+
             </div>
         </div>
     )

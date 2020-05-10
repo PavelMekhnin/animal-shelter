@@ -1,6 +1,6 @@
 import { IShelterCard, IShelterCardPreview } from "../interfaces/Interfaces";
 import { ShelterTypes } from "../types";
-import { IFetchShelterAction, IAction } from "../actions/shelterActions";
+import { IAction } from "../actions/shelterActions";
 
 type ShelterReducerType = {
     shelters: IShelterCardPreview[],

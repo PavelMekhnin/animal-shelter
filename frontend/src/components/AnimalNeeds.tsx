@@ -5,21 +5,25 @@ import { INeed } from "../interfaces/Interfaces";
 type AnimalNeedsProps = {
     list: INeed[]
 }
-export const AnimalNeeds: React.FC<AnimalNeedsProps> = ({ list }) => {
+export const AnimalNeeds: React.FC<AnimalNeedsProps> = ({ list}) => {
 
     return (
-        <ul className="collapsible">
-            {list.map(need => {
-                return (
-                    <li id={need.id.toString()}>
-                        <div className="collapsible-header">
-                            <i className="material-icons">local_hospital</i>
-                            {need.title}
-                            <span className="badge">{need.count}</span></div>
-                        <div className="collapsible-body"><p>{need.description}</p></div>
-                    </li>
-                )
-            })}
-        </ul>
+        <>
+            <div className="row">
+                <ul className="collapsible">
+                    {list.map(need => {
+                        return (
+                            <li id={need.id.toString()}>
+                                <div className="collapsible-header">
+                                    <i className="material-icons">local_hospital</i>
+                                    {need.title}
+                                    <span className="badge">{need.count}</span></div>
+                                <div className="collapsible-body"><p>{need.description}</p></div>
+                            </li>
+                        )
+                    })}
+                </ul>
+            </div>
+        </>
     )
 }

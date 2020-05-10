@@ -101,3 +101,26 @@ img.bg {
   left: 0;
 }
 
+.tabs-icon {
+  font-size: 10px;
+  overflow: hidden;
+}
+.tabs-icon i {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: -15px;
+  font-size: 24px;
+}
+.tabs-icon a.active {
+  background-color: #F3F3F3;
+}
+/* OVERWRITE MATERIAL CSS MIN WIDTH FOR MOBILE */
+.tabs .tab {
+  min-width: 50px !important
+}
+.tabs .tab-hide {
+    display: none;
+}
+.no-pd {
+  padding: 0 !important
+}

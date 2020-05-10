@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect } from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 import { AppState } from "../reducers/rootReducer";
 import { ShelterCardPreview } from "./ShelterCardPreview";
 import { connect, useDispatch } from "react-redux";
@@ -6,7 +6,13 @@ import { fetchShelters } from "../actions/shelterActions";
 import { bindActionCreators, AnyAction } from "redux";
 
 const ShelterList: React.FC<Props> = ({ shelters, fetch, loading }) => {
-    fetch()
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    
+  
+      if(!isLoading){
+        fetch();
+        setIsLoading(true);
+      }
 
     return (
         <div className="container">

@@ -11,15 +11,12 @@ export const ContactsBlock: React.FC<ContactProps> = ({ list }) => {
     }
     return (
         <div className="left-info-block">
-            <span>Контакты</span>
+            <i className="material-icons">contact_phone</i>
             <ul>
                 {list.map(c => {
                     return (
                         <li>
-                            <p>
-                                {c.value}
-                            </p>
-                            <p>({c.owner})</p>
+                            <p>{c.value} ({c.owner})</p>
                         </li>
                     )
                 })}
