@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Mekhnin.Shelter.Context.Shelter\Mekhnin.Shelter.Context.Shelter.csproj" />
     <ProjectReference Include="..\Mekhnin.Shelter.ViewDto\Mekhnin.Shelter.ViewDto.csproj" />
   </ItemGroup>
 
