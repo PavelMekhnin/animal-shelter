@@ -5,13 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="5.2.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.2.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.2.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.2.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mekhnin.Shelter.Context.Shelter\Mekhnin.Shelter.Context.Shelter.csproj" />
+    <ProjectReference Include="..\Mekhnin.Shelter.ApplicationService\Mekhnin.Shelter.ApplicationService.csproj" />
     <ProjectReference Include="..\Mekhnin.Shelter.ViewDto\Mekhnin.Shelter.ViewDto.csproj" />
   </ItemGroup>
 

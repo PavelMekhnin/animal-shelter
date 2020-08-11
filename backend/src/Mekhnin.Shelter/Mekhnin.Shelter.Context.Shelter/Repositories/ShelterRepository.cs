@@ -6,7 +6,8 @@ using Mekhnin.Shelter.Data.Shelter.Context;
 namespace Mekhnin.Shelter.Context.Shelter.Repositories
 {
     internal class ShelterRepository 
-        : BaseSoftDeleteRepository<ShelterModel, Data.Shelter.Entities.Shelter, int, ShelterContext>, IShelterRepository
+        : BaseSoftDeleteRepository<ShelterModel, Data.Shelter.Entities.Shelter, int, ShelterContext>,
+            IShelterRepository
     {
         public ShelterRepository(
             IBaseContextFactory<ShelterContext> contextFactory,

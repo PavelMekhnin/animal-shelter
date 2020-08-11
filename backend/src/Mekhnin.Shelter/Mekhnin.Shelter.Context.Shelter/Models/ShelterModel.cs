@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Mekhnin.Shelter.Context.Shelter.Models
+﻿namespace Mekhnin.Shelter.Context.Shelter.Models
 {
     public class ShelterModel : BaseModel<int>
     {

@@ -14,7 +14,7 @@ namespace Mekhnin.Shelter.Data.Shelter.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;port=5432;Database=postgres;Username=postgres;Password=mysecretpassword");
+            optionsBuilder.UseNpgsql("Host=localhost;port=5432;Database=postgres;Username=postgres;Password=123");
             base.OnConfiguring(optionsBuilder);
         }
 

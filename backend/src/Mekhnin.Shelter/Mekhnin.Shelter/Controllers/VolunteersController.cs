@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Mekhnin.Shelter.Api.Interfaces;
+using Mekhnin.Shelter.ApplicationService.Interfaces;
 using Mekhnin.Shelter.ViewDto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,17 +12,42 @@ namespace Mekhnin.Shelter.Controllers
     [Route("api/volunteers")]
     public class VolunteersController : Controller
     {
-        // GET: api/<controller>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IVolunteerService _volunteerService;
+        private readonly IVolunteerViewModelMapper _volunteerViewModelMapper;
+
+        public VolunteersController(
+            IVolunteerService volunteerService,
+            IVolunteerViewModelMapper volunteerViewModelMapper
+            )
         {
-            return new string[] { "value1", "value2" };
+            _volunteerService = volunteerService;
+            _volunteerViewModelMapper = volunteerViewModelMapper;
+        }
+
+        // GET: api/<controller>
+        [HttpGet("shelter/{shelterId}")]
+        public async Task<IEnumerable<VolunteerCardPreview>> GetByShelterAsync(int shelterId)
+        {
+            var models = await _volunteerService.GetVolunteersAsync(shelterId, null);
+
+            var result = new List<VolunteerCardPreview>();
+
+            foreach (var volunteerModel in models)
+            {
+                result.Add(_volunteerViewModelMapper.Map(volunteerModel));
+            }
+
+            return result;
         }
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public VolunteerCardPreview Get(int id)
+        public async Task<VolunteerCardPreview> GetAsync(int id)
         {
+            var model = await _volunteerService.GetVolunteerAsync(id);
+
+            return _volunteerViewModelMapper.Map(model);
+
             return new VolunteerCardPreview()
             {
                 Id = 1,
@@ -34,21 +59,21 @@ namespace Mekhnin.Shelter.Controllers
         }
 
         // POST api/<controller>
-        [HttpPost]
-        public void Post([FromBody]string value)
+        [HttpPost("{id}")]
+        public async Task<VolunteerCardPreview> PostAsync(int id, [FromBody]VolunteerCardPreview value)
         {
-        }
+            var model = _volunteerViewModelMapper.Map(value);
 
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
+            model = await _volunteerService.SaveVolunteerAsync(model);
+
+            return _volunteerViewModelMapper.Map(model);
         }
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
+            await _volunteerService.DeleteVolunteerAsync(id);
         }
     }
 }

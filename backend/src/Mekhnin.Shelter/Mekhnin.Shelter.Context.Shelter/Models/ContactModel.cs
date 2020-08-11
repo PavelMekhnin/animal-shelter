@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mekhnin.Shelter.ViewDto
+namespace Mekhnin.Shelter.Context.Shelter.Models
 {
-    public class Contact
+    public class ContactModel : BaseModel<int>
     {
-        public int Id { get; set; }
         public int VolunteerId { get; set; }
         public int Type { get; set; }
         public string Value { get; set; }
-        public string Owner { get; set; }
     }
 }

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Mekhnin.Shelter.Api.Interfaces;
+using Mekhnin.Shelter.ApplicationService;
+using Mekhnin.Shelter.ApplicationService.Interfaces;
 using Mekhnin.Shelter.ViewDto;
-using Mekhnin.Shelter.ViewDto.SaveModels;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,10 +13,39 @@ namespace Mekhnin.Shelter.Controllers
     [Route("api/[controller]")]
     public class SheltersController : Controller
     {
+        private readonly IShelterService _shelterService;
+        private readonly IShelterViewModelMapper _shelterViewModelMapper;
+        private readonly IShelterPreviewViewModelMapper _previewViewModelMapper;
+
+        public SheltersController(
+            IShelterService shelterService,
+            IShelterViewModelMapper shelterViewModelMapper,
+            IShelterPreviewViewModelMapper previewViewModelMapper
+            )
+        {
+            _shelterService = shelterService;
+            _shelterViewModelMapper = shelterViewModelMapper;
+            _previewViewModelMapper = previewViewModelMapper;
+        }
+
         // GET: api/<controller>
         [HttpGet]
-        public IEnumerable<ShelterCardPreview> Get()
+        public async Task<IEnumerable<ShelterCardPreview>> GetListAsync([FromQuery]string searchQuery)
         {
+            var models = await _shelterService.GetSheltersAsync(new ShelterSearchParameters()
+            {
+                Name = searchQuery
+            });
+
+            var result= new List<ShelterCardPreview>();
+
+            foreach (var shelterModel in models)
+            {
+                result.Add(_previewViewModelMapper.Map(shelterModel));
+            }
+
+            return result;
+
             return new List<ShelterCardPreview>()
             {
                 new ShelterCardPreview()
@@ -39,11 +68,15 @@ namespace Mekhnin.Shelter.Controllers
                 }
             };
         }
-
+        
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public ShelterCard Get(int id)
+        public async Task<ShelterCard> GetAsync(int id)
         {
+            var model = await _shelterService.GetShelterAsync(id);
+
+            return _shelterViewModelMapper.Map(model);
+
             return new ShelterCard()
             {
                 Address = "г. Клин, Московская Обл.",
@@ -57,7 +90,7 @@ namespace Mekhnin.Shelter.Controllers
                     new Contact()
                     {
                         Owner = "Павел",
-                        Type = "phone",
+                        Type = 1,
                         Value = "+7 913 715 67 48"
                     }
                 },
@@ -120,22 +153,21 @@ namespace Mekhnin.Shelter.Controllers
         }
 
         // POST api/<controller>
-        [HttpPost]
-        public void Post([FromBody]ShelterCardSaveModel model)
+        [HttpPost("{id}")]
+        public async Task<ShelterCard> PostAsync([FromRoute]int id, [FromBody]ShelterCard value)
         {
-        }
+            var model = _shelterViewModelMapper.Map(value);
 
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]ShelterCardSaveModel model)
-        {
+            model = await _shelterService.SaveShelterAsync(model);
+
+            return _shelterViewModelMapper.Map(model);
         }
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-
+            await _shelterService.DeleteShelterAsync(id);
         }
     }
 }

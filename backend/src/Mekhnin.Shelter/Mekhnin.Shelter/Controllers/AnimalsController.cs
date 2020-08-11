@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Mekhnin.Shelter.Api.Interfaces;
+using Mekhnin.Shelter.ApplicationService.Interfaces;
 using Mekhnin.Shelter.ViewDto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,17 +12,42 @@ namespace Mekhnin.Shelter.Controllers
     [Route("api/[controller]")]
     public class AnimalsController : Controller
     {
-        // GET: api/<controller>
-        [HttpGet()]
-        public IEnumerable<AnimalCardPreview> Get()
+        private readonly IAnimalService _animalService;
+        private readonly IAnimalViewModelMapper _viewModelMapper;
+
+        public AnimalsController(
+            IAnimalService animalService,
+            IAnimalViewModelMapper viewModelMapper
+            )
         {
-            return new List<AnimalCardPreview>();
+            _animalService = animalService;
+            _viewModelMapper = viewModelMapper;
+        }
+
+        // GET: api/<controller>
+        [HttpGet("shelter/{shelterId}")]
+        public async Task<IEnumerable<AnimalCard>> GetByShelterAsync(int shelterId)
+        {
+            var models = await _animalService.GetAnimalsAsync(shelterId, null);
+
+            var result = new List<AnimalCard>();
+
+            foreach (var animalModel in models)
+            {
+                result.Add(_viewModelMapper.Map(animalModel));
+            }
+
+            return result;
         }
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public AnimalCard Get(int id)
+        public async Task<AnimalCard> GetAsync(int id)
         {
+            var model = await _animalService.GetAnimalAsync(id);
+
+            return _viewModelMapper.Map(model);
+
             return new AnimalCard()
             {
                 Id = 1,
@@ -65,22 +90,20 @@ namespace Mekhnin.Shelter.Controllers
             };
         }
 
-        // POST api/<controller>
-        [HttpPost]
-        public void Post([FromBody]string value)
+        [HttpPost("{id}")]
+        public async Task<AnimalCard> PostAsync([FromRoute] int id, [FromBody]AnimalCard value)
         {
+            var model = _viewModelMapper.Map(value);
+
+            model = await _animalService.SaveAnimalAsync(model);
+
+            return _viewModelMapper.Map(model);
         }
 
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
+            await _animalService.DeleteAnimalAsync(id);
         }
     }
 }
