@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useParams as params, Link } from "react-router-dom";
+import { useParams as params, useHistory } from "react-router-dom";
 import { VolunteerCardList } from "./VolunteerCardList";
 import { AnimalNeeds } from "./AnimalNeeds";
 import { AppState } from "../reducers/rootReducer";
 import { connect } from "react-redux";
 import { Page404 } from "./404";
-import { fetchAnimal } from "../actions/animalAction";
+import { fetchAnimal, postAnimal } from "../actions/animalAction";
 import { Dispatch } from "redux";
 import { IAnimalCard } from "../interfaces/Interfaces";
 
-const AnimalCard: React.FC<Props> = ({ animal, loading, fetch }) => {
+const AnimalCard: React.FC<Props> = ({ animal, loading, fetch, onSubmit }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
 
     if (!isLoading) {
         fetch();
@@ -32,38 +31,26 @@ const AnimalCard: React.FC<Props> = ({ animal, loading, fetch }) => {
             </div>
         )
     }
-    var link = `/shelter/${animal.shelterId}/pet/${animal.id}/edit`
+    
     return (
         <div className="container">
             <div className="row">
-                <Link to={link}>Редактировать</Link>
-            </div>
-            <div className="row">
-                <div className="row grey lighten-5 ">
-                    <div className="col s4  profile-left">
-                        <img className="responsive-img" src={animal.imgUrl} />
-                    </div>
-                    <div className="col s8">
-                        <div className="row">
-                            <div className="left-info-block center-align">
-                                <h6>{animal.name} ({animal.age} лет)</h6>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <p>{animal.bio}</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="col s12">
-                    <div className="row">
-                        <h5>Кураторы</h5>
-                        <VolunteerCardList list={animal.volunteers}/>
-                    </div>
-                    <div className="row">
-                        <h5>Нужды</h5>
-                        <AnimalNeeds list={animal.needs}></AnimalNeeds>
-                    </div>
-                </div>
+                <form >
+                    <input type="hidden" name="id" value={animal.id}></input><br></br>
+                    <label htmlFor="img">Изображение</label><br></br>
+                    <input type="text" name="img" value={animal.imgUrl}></input><br></br>
+                    <label htmlFor="name">Кличка</label><br></br>
+                    <input type="text" name="name" value={animal.name}></input><br></br>
+                    <label htmlFor="bio">Био</label><br></br>
+                    <input type="text" name="bio" value={animal.bio}></input><br></br>
+                    <label htmlFor="race">Порода</label><br></br>
+                    <input type="text" name="race" value={animal.race}></input><br></br>
+                    <label htmlFor="description">Описание</label><br></br>
+                    <input type="text" name="description" value={animal.description}></input><br></br>
+                    <label htmlFor="age">Возраст</label><br></br>
+                    <input type="text" name="age" value={animal.age}></input><br></br>
+                    <input type="submit" value="Сохранить" onClick={(e) => onSubmit(animal)}></input>
+                </form>
             </div>
         </div>
     )
@@ -88,14 +75,20 @@ const mapStateToProps = (state: AppState): mapStateToPropsType => {
 
 interface mapDispatchToPropsType {
     fetch: () => void;
+    onSubmit: (animal: IAnimalCard) => void;
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): mapDispatchToPropsType => ({
     fetch: () => {
         const route = params<RouteParams>();
         dispatch(fetchAnimal(route.shelterid, route.animalid));
+    },
+    onSubmit : (animal: IAnimalCard) => {              
+        const route = params<RouteParams>();
+        dispatch(postAnimal(animal));
     }
 })
+
 
 type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 

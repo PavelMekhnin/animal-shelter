@@ -4,8 +4,9 @@ export interface IAnimalCard {
     bio: string,
     age: number,
     description: string,
-    id: number
-    imgUrl: string
+    id: number,
+    shelterId: number,
+    imgUrl: string,
     needs: INeed[],
     volunteers: IVolunteerCard[]
 }
@@ -29,6 +30,8 @@ export interface INeed {
     count: number,
     description: string,
     id: number,
+    shelterId: number,
+    animalId: number,
     isDone: boolean
 }
 

@@ -153,9 +153,20 @@ namespace Mekhnin.Shelter.Controllers
         }
 
         // POST api/<controller>
-        [HttpPost("{id}")]
-        public async Task<ShelterCard> PostAsync([FromRoute]int id, [FromBody]ShelterCard value)
+        [HttpPost()]
+        public async Task<ShelterCard> PostAsync([FromBody]ShelterCard value)
         {
+            var model = _shelterViewModelMapper.Map(value);
+
+            model = await _shelterService.SaveShelterAsync(model);
+
+            return _shelterViewModelMapper.Map(model);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ShelterCard> PutAsync([FromRoute]int id, [FromBody]ShelterCard value)
+        {
+            value.Id = id;
             var model = _shelterViewModelMapper.Map(value);
 
             model = await _shelterService.SaveShelterAsync(model);

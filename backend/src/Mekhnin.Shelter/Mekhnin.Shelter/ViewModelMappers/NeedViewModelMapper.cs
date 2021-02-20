@@ -11,6 +11,8 @@ namespace Mekhnin.Shelter.Api.ViewModelMappers
             return new NeedModel()
             {
                 Id = viewModel.Id,
+                AnimalId = viewModel.AnimalId,
+                ShelterId = viewModel.ShelterId,
                 Description = viewModel.Description,
                 Title = viewModel.Title,
                 Count = viewModel.Count,
@@ -23,6 +25,8 @@ namespace Mekhnin.Shelter.Api.ViewModelMappers
             return new Need()
             {
                 Id = model.Id,
+                AnimalId = model.AnimalId,
+                ShelterId = model.ShelterId,
                 Description = model.Description,
                 Count = model.Count,
                 IsDone = model.IsDone,

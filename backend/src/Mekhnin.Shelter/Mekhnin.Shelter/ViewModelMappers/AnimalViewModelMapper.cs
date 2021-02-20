@@ -12,6 +12,7 @@ namespace Mekhnin.Shelter.Api.ViewModelMappers
             {
                 Description = viewModel.Description,
                 Id = viewModel.Id,
+                ShelterId = viewModel.ShelterId,
                 Age = viewModel.Age,
                 Bio = viewModel.Bio,
                 ImgUrl = viewModel.ImgUrl,
@@ -25,6 +26,7 @@ namespace Mekhnin.Shelter.Api.ViewModelMappers
             return new AnimalCard()
             {
                 Id = model.Id,
+                ShelterId = model.ShelterId,
                 ImgUrl = model.ImgUrl,
                 Name = model.Name,
                 Race = model.Race,

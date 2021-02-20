@@ -37,9 +37,19 @@ namespace Mekhnin.Shelter.Api.Controllers
             return result;
         }
 
-        [HttpPost("{id}")]
-        public async Task<Need> SaveAsync([FromRoute]int id, [FromBody]Need viewModel)
+        [HttpPost()]
+        public async Task<Need> SaveAsync([FromBody]Need viewModel)
         {
+            var model = _viewModelMapper.Map(viewModel);
+            model = await _needService.SaveNeedAsync(model);
+
+            return _viewModelMapper.Map(model);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<Need> PutAsync([FromRoute]int id, [FromBody]Need viewModel)
+        {
+            viewModel.Id = id;
             var model = _viewModelMapper.Map(viewModel);
             model = await _needService.SaveNeedAsync(model);
 

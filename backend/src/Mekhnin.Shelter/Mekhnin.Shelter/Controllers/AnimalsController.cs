@@ -90,9 +90,20 @@ namespace Mekhnin.Shelter.Controllers
             };
         }
 
-        [HttpPost("{id}")]
-        public async Task<AnimalCard> PostAsync([FromRoute] int id, [FromBody]AnimalCard value)
+        [HttpPost()]
+        public async Task<AnimalCard> PostAsync([FromBody]AnimalCard value)
         {
+            var model = _viewModelMapper.Map(value);
+
+            model = await _animalService.SaveAnimalAsync(model);
+
+            return _viewModelMapper.Map(model);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<AnimalCard> PutAsync([FromRoute] int id, [FromBody]AnimalCard value)
+        {
+            value.Id = id;
             var model = _viewModelMapper.Map(value);
 
             model = await _animalService.SaveAnimalAsync(model);

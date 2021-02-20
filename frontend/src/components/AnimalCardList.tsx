@@ -10,7 +10,7 @@ type AnimalList = {
 }
 
 export const AnimalCardList: React.FC<AnimalList> = ({ list, shelterId }) => {
-    if (list.length == 0) {
+    if (list == null || list.length == 0) {
         return (<span>На настоящий момент у приюта нет питомцев :(</span>)
     }
     var link = `/shelter/${shelterId}/pets`

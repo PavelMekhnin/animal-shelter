@@ -6,7 +6,9 @@ type AnimalNeedsProps = {
     list: INeed[]
 }
 export const AnimalNeeds: React.FC<AnimalNeedsProps> = ({ list}) => {
-
+    if(list == null || list.length == 0){
+        return (<span>На настоящий момент нет нужд :)</span>)
+    }
     return (
         <>
             <div className="row">

@@ -6,7 +6,7 @@ type ContactProps = {
 }
 
 export const ContactsBlock: React.FC<ContactProps> = ({ list }) => {
-    if (list.length == 0) {
+    if (list == null || list.length == 0) {
         return null;
     }
     return (

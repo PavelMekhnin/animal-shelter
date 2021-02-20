@@ -70,7 +70,7 @@ namespace Mekhnin.Shelter.Context.Shelter
 
             await context.SaveChangesAsync();
 
-            return await GetAsync(predicate);
+            return Mapper.MapToModel(entity);
         }
 
         public virtual async Task DeleteAsync(Expression<Func<TE, bool>> predicate)

@@ -59,9 +59,22 @@ namespace Mekhnin.Shelter.Controllers
         }
 
         // POST api/<controller>
-        [HttpPost("{id}")]
-        public async Task<VolunteerCardPreview> PostAsync(int id, [FromBody]VolunteerCardPreview value)
+        [HttpPost()]
+        public async Task<VolunteerCardPreview> PostAsync([FromBody]VolunteerCardPreview value)
         {
+            var model = _volunteerViewModelMapper.Map(value);
+
+            model = await _volunteerService.SaveVolunteerAsync(model);
+
+            return _volunteerViewModelMapper.Map(model);
+        }
+
+
+        // POST api/<controller>
+        [HttpPut("{id}")]
+        public async Task<VolunteerCardPreview> PutAsync(int id, [FromBody]VolunteerCardPreview value)
+        {
+            value.Id = id;
             var model = _volunteerViewModelMapper.Map(value);
 
             model = await _volunteerService.SaveVolunteerAsync(model);

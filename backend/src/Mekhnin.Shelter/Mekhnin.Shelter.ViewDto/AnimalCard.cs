@@ -7,6 +7,7 @@ namespace Mekhnin.Shelter.ViewDto
     public class AnimalCard
     {
         public int Id { get; set; }
+        public int ShelterId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Bio { get; set; }
