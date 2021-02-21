@@ -1,0 +1,45 @@
+version: "3.9"
+
+volumes: 
+  pg_volume:
+
+services:
+  shelter_fronend:
+    build: frontend/
+    restart: always
+    stdin_open: true
+    tty: true
+    ports: 
+      - "3000:3000"
+    networks:
+      - shelterdev
+    environment: 
+      - BACKEND=http://shelter-api
+      - VIRTUAL_HOST=shelter.local
+  shelter_backend:
+    build: backend/
+    restart: always
+    ports: 
+      - "5001:80"
+    networks:
+      - shelterdev
+    environment: 
+      - VIRTUAL_HOST=shelter-api.local
+      - ASPNETCORE_ENVIRONMENT=Development
+      - PG_USER=
+      - PG_PASSWORD=
+    
+  pg_db:
+    image: postgres:latest
+    restart: always
+    volumes: 
+      - pg_volume:/var/lib/postgresql/data
+    networks:
+      - shelterdev
+    environment:
+      - POSTGRES_PASSWORD=password123
+      - POSTGRES_DB=shelter
+
+networks:
+  shelterdev:
+    driver: bridge
