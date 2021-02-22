@@ -48,6 +48,18 @@ services:
       - POSTGRES_DB=shelter
       - POSTGRES_USER=admin
 
+  nginx-proxy:
+    container_name: nginx-proxy
+    build:
+      context: nginx-proxy
+      dockerfile: Dockerfile
+    volumes:
+      - nginx-proxy/conf.d:/etc/nginx/conf.d
+    ports:
+      - 80:80
+    networks:
+      - shelternetwork
+
 networks:
   shelternetwork:
     driver: bridge
