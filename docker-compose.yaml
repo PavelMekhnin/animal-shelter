@@ -9,8 +9,6 @@ services:
     restart: always
     stdin_open: true
     tty: true
-    ports: 
-      - "3000:3000"
     networks:
       - shelternetwork
     environment: 
@@ -22,8 +20,6 @@ services:
     restart: always
     depends_on: 
       - shelter-db
-    ports: 
-      - "5001:80"
     networks:
       - shelternetwork
     environment: 
@@ -54,11 +50,13 @@ services:
       context: nginx-proxy
       dockerfile: Dockerfile
     volumes:
-      - nginx-proxy/conf.d:/etc/nginx/conf.d
+      - ./nginx-proxy/conf.d/default.conf:/etc/nginx/conf.d/default.conf
     ports:
       - 80:80
     networks:
       - shelternetwork
+    links:
+      - shelter-frontend
 
 networks:
   shelternetwork:
