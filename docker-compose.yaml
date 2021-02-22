@@ -28,6 +28,7 @@ services:
       - PG_USER=admin
       - PG_PASSWORD=password123
       - PG_DBNAME=shelter
+      - PG_HOST=shelter-db
 
   shelter-db:
     image: postgres:latest
