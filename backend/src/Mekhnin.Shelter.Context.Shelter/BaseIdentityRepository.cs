@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Mekhnin.Shelter.Context.Shelter.Interfaces;
 using Mekhnin.Shelter.Data.Shelter;
@@ -21,28 +19,31 @@ namespace Mekhnin.Shelter.Context.Shelter
             IBaseContextFactory<TContext> contextFactory,
             IMapper<TM, TE> mapper
             )
-        : base(contextFactory, mapper)
+        : base(
+            contextFactory,
+            mapper
+            )
         {
         }
 
-        public async Task<TM> GetAsync(TIdentity id)
+        public async Task<TM> GetAsync(TIdentity id, CancellationToken cancellationToken)
         {
-            return await base.GetAsync(x => x.Id.Equals(id));
+            return await base.GetAsync(x => x.Id.Equals(id), cancellationToken);
         }
 
-        public IAsyncEnumerable<TM> GetAsync()
+        public async Task<ICollection<TM>> GetAsync(CancellationToken cancellationToken)
         {
-            return base.GetListAsync(x => true);
+            return await base.GetListAsync(cancellationToken);
         }
 
-        public async Task<TM> SaveAsync(TM model)
+        public async Task<TM> SaveAsync(TM model, CancellationToken cancellationToken)
         {
-            return await base.SaveAsync(model, x => x.Id.Equals(model.Id));
+            return await base.SaveAsync(model, x => x.Id.Equals(model.Id), cancellationToken);
         }
 
-        public virtual async Task DeleteAsync(TIdentity id)
+        public virtual async Task DeleteAsync(TIdentity id, CancellationToken cancellationToken)
         {
-            await base.DeleteAsync(x => x.Id.Equals(id));
+            await base.DeleteAsync(x => x.Id.Equals(id), cancellationToken);
         }
     }
 }

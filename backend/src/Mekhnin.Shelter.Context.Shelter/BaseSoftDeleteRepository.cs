@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Mekhnin.Shelter.Context.Shelter.Interfaces;
 using Mekhnin.Shelter.Data.Shelter;
 using Microsoft.EntityFrameworkCore;
@@ -15,21 +16,24 @@ namespace Mekhnin.Shelter.Context.Shelter
             IBaseContextFactory<TContext> contextFactory,
             IMapper<TM, TE> mapper
         )
-            : base(contextFactory, mapper)
+            : base(
+                contextFactory,
+                mapper
+                )
         {
         }
 
-        public override async Task DeleteAsync(TIdentity id)
+        public override async Task DeleteAsync(TIdentity id, CancellationToken cancellationToken)
         {
             await using var context = ContextFactory.Create();
             var entity = await GetQueryable(context)
-                .FirstOrDefaultAsync(x => x.Id.Equals(id));
+                .FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken);
 
             if (entity != null)
             {
                 entity.IsDeleted = true;
 
-                await context.SaveChangesAsync();
+                await context.SaveChangesAsync(cancellationToken);
             }
         }
     }

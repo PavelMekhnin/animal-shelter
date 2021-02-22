@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Mekhnin.Shelter.Context.Shelter.Models;
 
 namespace Mekhnin.Shelter.Context.Shelter.Interfaces
@@ -6,7 +8,7 @@ namespace Mekhnin.Shelter.Context.Shelter.Interfaces
     public interface IVolunteerRepository
         : IIdentityRepository<VolunteerModel, Data.Shelter.Entities.Volunteer, int>
     {
-        IAsyncEnumerable<VolunteerModel> GetListByShelterAsync(int shelterId);
-        IAsyncEnumerable<VolunteerModel> GetListByAnimalAsync(int animalId);
+        Task<List<VolunteerModel>> GetListByShelterAsync(int shelterId, CancellationToken cancellationToken);
+        Task<List<VolunteerModel>> GetListByAnimalAsync(int animalId, CancellationToken cancellationToken);
     }
 }

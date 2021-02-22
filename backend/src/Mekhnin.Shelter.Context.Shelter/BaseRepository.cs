@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Mekhnin.Shelter.Context.Shelter.Interfaces;
 using Mekhnin.Shelter.Data.Shelter;
@@ -28,11 +29,11 @@ namespace Mekhnin.Shelter.Context.Shelter
             Mapper = mapper;
         }
 
-        protected async Task<TM> GetAsync(Expression<Func<TE, bool>> predicate)
+        protected async Task<TM> GetAsync(Expression<Func<TE, bool>> predicate, CancellationToken cancellationToken)
         {
             await using var context = ContextFactory.Create();
             var entity = await GetQueryable(context)
-                .FirstOrDefaultAsync(predicate);
+                .FirstOrDefaultAsync(predicate, cancellationToken);
 
             if (entity == null)
             {
@@ -41,24 +42,32 @@ namespace Mekhnin.Shelter.Context.Shelter
 
             return Mapper.MapToModel(entity);
         }
-        
-        protected async IAsyncEnumerable<TM> GetListAsync(Expression<Func<TE, bool>> predicate)
+
+        protected async Task<ICollection<TM>> GetListAsync(CancellationToken cancellationToken, Expression<Func<TE, bool>> predicate = null)
         {
             await using var context = ContextFactory.Create();
-            var entities = await GetQueryable(context)
-                .Where(predicate).ToArrayAsync();
-            
+            var query = GetQueryable(context);
+            if (predicate != null)
+            {
+                query = query.Where(predicate);
+            }
+
+            var entities = await query.ToArrayAsync(cancellationToken);
+
+            var result = new List<TM>();
             foreach (var entity in entities)
             {
-                yield return Mapper.MapToModel(entity);
+                result.Add(Mapper.MapToModel(entity));
             }
+
+            return result;
         }
 
-        public async Task<TM> SaveAsync(TM model, Expression<Func<TE, bool>> predicate)
+        public async Task<TM> SaveAsync(TM model, Expression<Func<TE, bool>> predicate, CancellationToken cancellationToken)
         {
             await using var context = ContextFactory.Create();
             var entity = await GetQueryable(context)
-                .FirstOrDefaultAsync(predicate);
+                .FirstOrDefaultAsync(predicate, cancellationToken);
 
             if (entity == null)
             {
@@ -68,22 +77,22 @@ namespace Mekhnin.Shelter.Context.Shelter
 
             Mapper.MapToEntity(model, entity);
 
-            await context.SaveChangesAsync();
+            await context.SaveChangesAsync(cancellationToken);
 
             return Mapper.MapToModel(entity);
         }
 
-        public virtual async Task DeleteAsync(Expression<Func<TE, bool>> predicate)
+        public virtual async Task DeleteAsync(Expression<Func<TE, bool>> predicate, CancellationToken cancellationToken)
         {
             await using var context = ContextFactory.Create();
             var entity = await GetQueryable(context)
-                .FirstOrDefaultAsync(predicate);
+                .FirstOrDefaultAsync(predicate, cancellationToken);
 
             if (entity != null)
             {
                 context.Remove(entity);
 
-                await context.SaveChangesAsync();
+                await context.SaveChangesAsync(cancellationToken);
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Mekhnin.Shelter.ApplicationService.Interfaces;
 using Mekhnin.Shelter.Context.Shelter.Interfaces;
@@ -18,42 +19,42 @@ namespace Mekhnin.Shelter.ApplicationService.Services
             _volunteerRepository = volunteerRepository;
         }
 
-        public async Task<VolunteerModel> GetVolunteerAsync(int id)
+        public async Task<VolunteerModel> GetVolunteerAsync(int id, CancellationToken cancellationToken)
         {
-            return await _volunteerRepository.GetAsync(id);
+            return await _volunteerRepository.GetAsync(id, cancellationToken);
         }
 
-        public Task<ICollection<VolunteerModel>> GetVolunteersAsync(int shelterId, VolunteerSearchParameters parameters)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<VolunteerModel> SaveVolunteerAsync(VolunteerModel model)
-        {
-            return await _volunteerRepository.SaveAsync(model);
-        }
-
-        public async Task DeleteVolunteerAsync(int id)
-        {
-            await _volunteerRepository.DeleteAsync(id);
-        }
-
-        public Task AttachVolunteerToShelterAsync(int volunteerId, int shelterId)
+        public Task<ICollection<VolunteerModel>> GetVolunteersAsync(int shelterId, VolunteerSearchParameters parameters, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public Task DetachVolunteerFromShelterAsync(int volunteerId, int shelterId)
+        public async Task<VolunteerModel> SaveVolunteerAsync(VolunteerModel model, CancellationToken cancellationToken)
+        {
+            return await _volunteerRepository.SaveAsync(model, cancellationToken);
+        }
+
+        public async Task DeleteVolunteerAsync(int id, CancellationToken cancellationToken)
+        {
+            await _volunteerRepository.DeleteAsync(id, cancellationToken);
+        }
+
+        public Task AttachVolunteerToShelterAsync(int volunteerId, int shelterId, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public Task AttachVolunteerToAnimalAsync(int volunteerId, int shelterId)
+        public Task DetachVolunteerFromShelterAsync(int volunteerId, int shelterId, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public Task DetachVolunteerFromAnimalAsync(int volunteerId, int shelterId)
+        public Task AttachVolunteerToAnimalAsync(int volunteerId, int shelterId, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DetachVolunteerFromAnimalAsync(int volunteerId, int shelterId, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Mekhnin.Shelter.Context.Shelter.Interfaces;
 using Mekhnin.Shelter.Context.Shelter.Models;
 using Mekhnin.Shelter.Data.Shelter.Context;
@@ -23,25 +25,29 @@ namespace Mekhnin.Shelter.Context.Shelter.Repositories
                 )
         {
         }
-
+        
         protected override IQueryable<Volunteer> GetQueryable(ShelterContext context)
         {
             return context.Volunteers;
         }
 
-        public async IAsyncEnumerable<VolunteerModel> GetListByShelterAsync(int shelterId)
+        public async Task<List<VolunteerModel>> GetListByShelterAsync(int shelterId, CancellationToken cancellationToken)
         {
             await using var context = ContextFactory.Create();
             var entities = await GetQueryable(context)
-                .Where(x => x.ShelterVolunteers.Any(v => v.ShelterId == shelterId)).ToArrayAsync();
+                .Where(x => x.ShelterVolunteers.Any(v => v.ShelterId == shelterId))
+                .ToArrayAsync(cancellationToken);
 
+            var result = new List<VolunteerModel>();
             foreach (var entity in entities)
             {
-                yield return Mapper.MapToModel(entity);
+                result.Add(Mapper.MapToModel(entity));
             }
+
+            return result;
         }
 
-        public IAsyncEnumerable<VolunteerModel> GetListByAnimalAsync(int animalId)
+        public Task<List<VolunteerModel>> GetListByAnimalAsync(int animalId, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

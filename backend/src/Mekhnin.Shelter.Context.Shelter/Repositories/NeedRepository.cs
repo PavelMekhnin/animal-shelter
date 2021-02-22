@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Mekhnin.Shelter.Context.Shelter.Interfaces;
 using Mekhnin.Shelter.Context.Shelter.Models;
 using Mekhnin.Shelter.Data.Shelter.Context;
@@ -28,28 +30,35 @@ namespace Mekhnin.Shelter.Context.Shelter.Repositories
             return context.Needs;
         }
 
-        public async IAsyncEnumerable<NeedModel> GetListByShelterAsync(int shelterId)
+        public async Task<List<NeedModel>> GetListByShelterAsync(int shelterId, CancellationToken cancellationToken)
         {
             await using var context = ContextFactory.Create();
             var entities = await GetQueryable(context)
-                .Where(x => x.ShelterId == shelterId).ToArrayAsync();
+                .Where(x => x.ShelterId == shelterId)
+                .ToArrayAsync(cancellationToken);
 
+            var result = new List<NeedModel>();
             foreach (var entity in entities)
             {
-                yield return Mapper.MapToModel(entity);
+                result.Add(Mapper.MapToModel(entity));
             }
+
+            return result;
         }
 
-        public async IAsyncEnumerable<NeedModel> GetListByAnimalAsync(int animalId)
+        public async Task<List<NeedModel>> GetListByAnimalAsync(int animalId, CancellationToken cancellationToken)
         {
             await using var context = ContextFactory.Create();
             var entities = await GetQueryable(context)
-                .Where(x => x.AnimalId == animalId).ToArrayAsync();
+                .Where(x => x.AnimalId == animalId).ToArrayAsync(cancellationToken);
 
+            var result = new List<NeedModel>();
             foreach (var entity in entities)
             {
-                yield return Mapper.MapToModel(entity);
+                result.Add(Mapper.MapToModel(entity));
             }
+
+            return result;
         }
     }
 }

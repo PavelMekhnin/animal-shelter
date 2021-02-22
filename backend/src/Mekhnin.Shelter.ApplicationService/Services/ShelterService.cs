@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Mekhnin.Shelter.ApplicationService.Interfaces;
 using Mekhnin.Shelter.Context.Shelter.Interfaces;
@@ -19,24 +18,24 @@ namespace Mekhnin.Shelter.ApplicationService.Services
             _shelterRepository = shelterRepository;
         }
 
-        public async Task<ShelterModel> GetShelterAsync(int id)
+        public async Task<ShelterModel> GetShelterAsync(int id, CancellationToken cancellationToken)
         {
-            return await _shelterRepository.GetAsync(id);
+            return await _shelterRepository.GetAsync(id, cancellationToken);
         }
 
-        public Task<ICollection<ShelterModel>> GetSheltersAsync(ShelterSearchParameters parameters)
+        public async Task<ICollection<ShelterModel>> GetSheltersAsync(ShelterSearchParameters parameters, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await _shelterRepository.GetAsync(cancellationToken);
         }
 
-        public async Task<ShelterModel> SaveShelterAsync(ShelterModel model)
+        public async Task<ShelterModel> SaveShelterAsync(ShelterModel model, CancellationToken cancellationToken)
         {
-            return await _shelterRepository.SaveAsync(model);
+            return await _shelterRepository.SaveAsync(model, cancellationToken);
         }
 
-        public async Task DeleteShelterAsync(int id)
+        public async Task DeleteShelterAsync(int id, CancellationToken cancellationToken)
         {
-            await _shelterRepository.DeleteAsync(id);
+            await _shelterRepository.DeleteAsync(id, cancellationToken);
         }
     }
 }

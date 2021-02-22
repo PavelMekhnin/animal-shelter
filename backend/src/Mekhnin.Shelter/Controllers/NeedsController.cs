@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Mekhnin.Shelter.Api.Interfaces;
 using Mekhnin.Shelter.ApplicationService.Interfaces;
@@ -23,9 +24,9 @@ namespace Mekhnin.Shelter.Api.Controllers
         }
 
         [HttpGet("shelter/{shelterId}")]
-        public async Task<IEnumerable<Need>> GetByShelterAsync(int shelterId)
+        public async Task<IEnumerable<Need>> GetByShelterAsync(int shelterId, CancellationToken cancellationToken)
         {
-            var models = await _needService.GetNeedsAsync(shelterId, null);
+            var models = await _needService.GetNeedsAsync(shelterId, null, cancellationToken);
 
             var result = new List<Need>();
 
@@ -38,28 +39,28 @@ namespace Mekhnin.Shelter.Api.Controllers
         }
 
         [HttpPost()]
-        public async Task<Need> SaveAsync([FromBody]Need viewModel)
+        public async Task<Need> SaveAsync([FromBody]Need viewModel, CancellationToken cancellationToken)
         {
             var model = _viewModelMapper.Map(viewModel);
-            model = await _needService.SaveNeedAsync(model);
+            model = await _needService.SaveNeedAsync(model, cancellationToken);
 
             return _viewModelMapper.Map(model);
         }
 
         [HttpPut("{id}")]
-        public async Task<Need> PutAsync([FromRoute]int id, [FromBody]Need viewModel)
+        public async Task<Need> PutAsync([FromRoute]int id, [FromBody]Need viewModel, CancellationToken cancellationToken)
         {
             viewModel.Id = id;
             var model = _viewModelMapper.Map(viewModel);
-            model = await _needService.SaveNeedAsync(model);
+            model = await _needService.SaveNeedAsync(model, cancellationToken);
 
             return _viewModelMapper.Map(model);
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteAsync([FromRoute]int id)
+        public async Task DeleteAsync([FromRoute]int id, CancellationToken cancellationToken)
         {
-            await _needService.DeleteNeedAsync(id);
+            await _needService.DeleteNeedAsync(id, cancellationToken);
         }
     }
 }

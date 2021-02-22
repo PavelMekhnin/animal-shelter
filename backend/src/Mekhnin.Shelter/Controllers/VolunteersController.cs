@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Mekhnin.Shelter.Api.Interfaces;
 using Mekhnin.Shelter.ApplicationService.Interfaces;
 using Mekhnin.Shelter.ViewDto;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace Mekhnin.Shelter.Controllers
+namespace Mekhnin.Shelter.Api.Controllers
 {
     [Route("api/volunteers")]
     public class VolunteersController : Controller
@@ -24,11 +23,10 @@ namespace Mekhnin.Shelter.Controllers
             _volunteerViewModelMapper = volunteerViewModelMapper;
         }
 
-        // GET: api/<controller>
         [HttpGet("shelter/{shelterId}")]
-        public async Task<IEnumerable<VolunteerCardPreview>> GetByShelterAsync(int shelterId)
+        public async Task<IEnumerable<VolunteerCardPreview>> GetByShelterAsync(int shelterId, CancellationToken cancellationToken)
         {
-            var models = await _volunteerService.GetVolunteersAsync(shelterId, null);
+            var models = await _volunteerService.GetVolunteersAsync(shelterId, null, cancellationToken);
 
             var result = new List<VolunteerCardPreview>();
 
@@ -40,53 +38,39 @@ namespace Mekhnin.Shelter.Controllers
             return result;
         }
 
-        // GET api/<controller>/5
         [HttpGet("{id}")]
-        public async Task<VolunteerCardPreview> GetAsync(int id)
+        public async Task<VolunteerCardPreview> GetAsync(int id, CancellationToken cancellationToken)
         {
-            var model = await _volunteerService.GetVolunteerAsync(id);
+            var model = await _volunteerService.GetVolunteerAsync(id, cancellationToken);
 
             return _volunteerViewModelMapper.Map(model);
-
-            return new VolunteerCardPreview()
-            {
-                Id = 1,
-                FirstName = "Павел",
-                LastName = "Мехнин",
-                Phone = "+ 7 913 715 67 48",
-                ImgUrl = "https://конныйспорт.екатеринбург.рф/media/news/news_8570_image_900x_.jpg"
-            };
         }
 
-        // POST api/<controller>
         [HttpPost()]
-        public async Task<VolunteerCardPreview> PostAsync([FromBody]VolunteerCardPreview value)
+        public async Task<VolunteerCardPreview> PostAsync([FromBody]VolunteerCardPreview value, CancellationToken cancellationToken)
         {
             var model = _volunteerViewModelMapper.Map(value);
 
-            model = await _volunteerService.SaveVolunteerAsync(model);
+            model = await _volunteerService.SaveVolunteerAsync(model, cancellationToken);
 
             return _volunteerViewModelMapper.Map(model);
         }
 
-
-        // POST api/<controller>
         [HttpPut("{id}")]
-        public async Task<VolunteerCardPreview> PutAsync(int id, [FromBody]VolunteerCardPreview value)
+        public async Task<VolunteerCardPreview> PutAsync(int id, [FromBody]VolunteerCardPreview value, CancellationToken cancellationToken)
         {
             value.Id = id;
             var model = _volunteerViewModelMapper.Map(value);
 
-            model = await _volunteerService.SaveVolunteerAsync(model);
+            model = await _volunteerService.SaveVolunteerAsync(model, cancellationToken);
 
             return _volunteerViewModelMapper.Map(model);
         }
 
-        // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id, CancellationToken cancellationToken)
         {
-            await _volunteerService.DeleteVolunteerAsync(id);
+            await _volunteerService.DeleteVolunteerAsync(id, cancellationToken);
         }
     }
 }

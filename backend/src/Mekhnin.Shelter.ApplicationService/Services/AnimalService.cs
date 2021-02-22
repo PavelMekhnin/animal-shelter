@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Mekhnin.Shelter.ApplicationService.Interfaces;
 using Mekhnin.Shelter.Context.Shelter.Interfaces;
@@ -19,27 +19,27 @@ namespace Mekhnin.Shelter.ApplicationService.Services
             _animalRepository = animalRepository;
         }
 
-        public async Task<AnimalModel> GetAnimalAsync(int id)
+        public async Task<AnimalModel> GetAnimalAsync(int id, CancellationToken cancellationToken)
         {
-            return await _animalRepository.GetAsync(id);
+            return await _animalRepository.GetAsync(id, cancellationToken);
         }
 
-        public async Task<ICollection<AnimalModel>> GetAnimalsAsync(int shelterId, AnimalSearchParameters parameters)
+        public async Task<ICollection<AnimalModel>> GetAnimalsAsync(int shelterId, AnimalSearchParameters parameters, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await _animalRepository.GetListByShelterAsync(shelterId, cancellationToken);
         }
 
-        public async Task<AnimalModel> SaveAnimalAsync(AnimalModel model)
+        public async Task<AnimalModel> SaveAnimalAsync(AnimalModel model, CancellationToken cancellationToken)
         {
-            return await _animalRepository.SaveAsync(model);
+            return await _animalRepository.SaveAsync(model, cancellationToken);
         }
 
-        public async Task DeleteAnimalAsync(int id)
+        public async Task DeleteAnimalAsync(int id, CancellationToken cancellationToken)
         {
-            await _animalRepository.DeleteAsync(id);
+            await _animalRepository.DeleteAsync(id, cancellationToken);
         }
 
-        public Task ArchiveAnimalAsync(int id)
+        public Task ArchiveAnimalAsync(int id, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
