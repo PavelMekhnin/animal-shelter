@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 
 WORKDIR /app
-
+EXPOSE 5001
 # Copy and restore as distinct layers
 COPY src/. ./src
 RUN dotnet restore src/Mekhnin.Shelter/Mekhnin.Shelter.Api.csproj
@@ -14,6 +14,5 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 WORKDIR /app
 COPY --from=build-env /app/out .
 
-EXPOSE 80
 
 ENTRYPOINT ["dotnet", "Mekhnin.Shelter.Api.dll"]
