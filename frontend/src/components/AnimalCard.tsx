@@ -36,7 +36,7 @@ const AnimalCard: React.FC<Props> = ({ animal, loading, fetch }) => {
     return (
         <div className="container">
             <div className="row">
-                <Link to={link}>Редактировать</Link>
+                <Link to={link}>Edit</Link>
             </div>
             <div className="row">
                 <div className="row grey lighten-5 ">
@@ -56,11 +56,11 @@ const AnimalCard: React.FC<Props> = ({ animal, loading, fetch }) => {
                 </div>
                 <div className="col s12">
                     <div className="row">
-                        <h5>Кураторы</h5>
+                        <h5>Volunteers</h5>
                         <VolunteerCardList list={animal.volunteers}/>
                     </div>
                     <div className="row">
-                        <h5>Нужды</h5>
+                        <h5>Needs</h5>
                         <AnimalNeeds list={animal.needs}></AnimalNeeds>
                     </div>
                 </div>

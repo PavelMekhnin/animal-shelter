@@ -24,7 +24,7 @@ const ShelterList: React.FC<Props> = ({ shelters, fetch, loading }) => {
                     <div className="row">
                         {
                             shelters.length == 0 ? (
-                                <h1>Ничег оне найдено :(</h1>
+                                <h1>Couldn't find any shelter :(</h1>
                             )
                                 :
                                 (

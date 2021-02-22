@@ -8,7 +8,7 @@ type VolunteerList = {
 
 export const VolunteerCardList: React.FC<VolunteerList> = ({ list}) => {
     if (list == null || list.length == 0) {
-        return (<span>У питомца нет кураторов :(</span>)
+        return (<span>No volunteers yet :(</span>)
     }
     return (
         <>

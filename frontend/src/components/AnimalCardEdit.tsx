@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams as params, useHistory } from "react-router-dom";
-import { VolunteerCardList } from "./VolunteerCardList";
-import { AnimalNeeds } from "./AnimalNeeds";
 import { AppState } from "../reducers/rootReducer";
 import { connect } from "react-redux";
 import { Page404 } from "./404";
@@ -37,17 +35,17 @@ const AnimalCard: React.FC<Props> = ({ animal, loading, fetch, onSubmit }) => {
             <div className="row">
                 <form >
                     <input type="hidden" name="id" value={animal.id}></input><br></br>
-                    <label htmlFor="img">Изображение</label><br></br>
+                    <label htmlFor="img">Image</label><br></br>
                     <input type="text" name="img" value={animal.imgUrl}></input><br></br>
-                    <label htmlFor="name">Кличка</label><br></br>
+                    <label htmlFor="name">Nikname</label><br></br>
                     <input type="text" name="name" value={animal.name}></input><br></br>
-                    <label htmlFor="bio">Био</label><br></br>
+                    <label htmlFor="bio">Bio</label><br></br>
                     <input type="text" name="bio" value={animal.bio}></input><br></br>
-                    <label htmlFor="race">Порода</label><br></br>
+                    <label htmlFor="race">Race</label><br></br>
                     <input type="text" name="race" value={animal.race}></input><br></br>
-                    <label htmlFor="description">Описание</label><br></br>
+                    <label htmlFor="description">Description</label><br></br>
                     <input type="text" name="description" value={animal.description}></input><br></br>
-                    <label htmlFor="age">Возраст</label><br></br>
+                    <label htmlFor="age">Age</label><br></br>
                     <input type="text" name="age" value={animal.age}></input><br></br>
                     <input type="submit" value="Сохранить" onClick={(e) => onSubmit(animal)}></input>
                 </form>

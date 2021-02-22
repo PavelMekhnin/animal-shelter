@@ -20,7 +20,7 @@ export const AnimalCardPreview: React.FC<AnimalCardProps> = (card) => {
                         </div>
                         <div className="card-content">
                             <span className="card-title grey-text text-darken-4">{card.card.name}</span>
-                            <p><Link to={url}>Подробнее</Link></p>
+                            <p><Link to={url}>More</Link></p>
                         </div>
                     </div>
                 </div>

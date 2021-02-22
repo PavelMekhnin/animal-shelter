@@ -19,7 +19,7 @@ export const Footer : React.FC = () =>(
           </div>
           <div className="footer-copyright">
             <div className="container">
-            © 2020 Copyright "Pavel Mekhnin"
+            © 2021 Copyright "Pavel Mekhnin"
             </div>
           </div>
         </footer>

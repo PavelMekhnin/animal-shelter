@@ -7,7 +7,7 @@ type AnimalNeedsProps = {
 }
 export const AnimalNeeds: React.FC<AnimalNeedsProps> = ({ list}) => {
     if(list == null || list.length == 0){
-        return (<span>На настоящий момент нет нужд :)</span>)
+        return (<span>Our pets don't need anything :)</span>)
     }
     return (
         <>

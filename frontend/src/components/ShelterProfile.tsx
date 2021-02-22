@@ -14,7 +14,7 @@ import { VolunteerCardList } from "./VolunteerCardList";
 
 export const ShelterProfile: React.FC<Props> = ({ shelter, loading, fetch }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
+    var editUrl = `/shelter/${shelter.id}/edit`
     if (!isLoading) {
         fetch();
         setIsLoading(true);
@@ -60,6 +60,13 @@ export const ShelterProfile: React.FC<Props> = ({ shelter, loading, fetch }) => 
                     <hr></hr>
                 </div>
                 <div className="col s9">
+                    <div className="row">
+                        <Link to={editUrl} >
+                            <div className="btn">
+                                Edit
+                            </div>
+                        </Link>
+                    </div>
                     <ShelterTabs shelter={shelter}></ShelterTabs>
                 </div>
             </div>
@@ -73,7 +80,7 @@ const ShelterHomeTab: React.FC<ShelterHomeTabProps> = ({ shelter }) => {
     return (
         <>
             <div className="row">
-                <h5 className="center-align">Немного о приюте</h5>
+                <h5 className="center-align">A little bit about us</h5>
                 <p>{shelter.description}</p>
             </div>
         </>
@@ -94,10 +101,10 @@ const ShelterTabs: React.FC<ShelterHomeTabProps> = ({ shelter }) => {
     return (
         <div id="tabs">
             <ul className="tabs tabs-icon">
-                <li className="tab col s3"><a href="#home" className="active"><i className="material-icons">help</i>О нас</a></li>
-                <li className="tab col s3"><a href="#pets" ><i className="material-icons">apps</i>Питомцы</a></li>
-                <li className="tab col s3"><a href="#needs" ><i className="material-icons">format_list_bulleted</i>Нужды</a></li>
-                <li className="tab col s3"><a href="#volunteers" ><i className="material-icons">group</i>Волантеры</a></li>
+                <li className="tab col s3"><a href="#home" className="active"><i className="material-icons">help</i>About</a></li>
+                <li className="tab col s3"><a href="#pets" ><i className="material-icons">pets</i>Animals</a></li>
+                <li className="tab col s3"><a href="#needs" ><i className="material-icons">format_list_bulleted</i>Needs</a></li>
+                <li className="tab col s3"><a href="#volunteers" ><i className="material-icons">group</i>Volunteers</a></li>
             </ul>
 
             <div id="home" className="col s12"><ShelterHomeTab shelter={shelter}></ShelterHomeTab></div>
