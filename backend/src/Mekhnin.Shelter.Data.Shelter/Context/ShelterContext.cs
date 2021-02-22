@@ -5,16 +5,30 @@ using System.Reflection;
 using Mekhnin.Shelter.Data.Shelter.Entities;
 using Mekhnin.Shelter.Data.Shelter.Extends;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Mekhnin.Shelter.Data.Shelter.Context
 {
     public class ShelterContext : DbContext
     {
+        private readonly IConfiguration _configuration;
         protected Dictionary<Type, string> _pgtableNamesExclusions;
+
+        public ShelterContext(
+            IConfiguration configuration
+            )
+        {
+            _configuration = configuration;
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;port=5432;Database=postgres;Username=postgres;Password=123");
+            var dbHost = _configuration["PG_HOST"];
+            var dbDatabaseName = _configuration["PG_DBNAME"];
+            var dbPsw = _configuration["PG_PASSWORD"];
+
+            optionsBuilder.UseNpgsql($"Host={dbHost};port=5432;Database={dbDatabaseName};Username=postgres;Password={dbPsw}");
+
             base.OnConfiguring(optionsBuilder);
         }
 
@@ -28,7 +42,6 @@ namespace Mekhnin.Shelter.Data.Shelter.Context
                 }
             }
 
-            // получаем все табличные проперти
             var genProps = typeof(ShelterContext)
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Where(pi => pi.PropertyType.IsGenericType && pi.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>));
@@ -39,18 +52,17 @@ namespace Mekhnin.Shelter.Data.Shelter.Context
 
                 if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(DbSet<>))
                 {
-                    // добываем из генерик типа тип таблицы
                     var tableType = type.GetGenericArguments()[0];
 
-                    // генерим имя таблицы
+                    // table name generation
                     string tableName;
                     if (_pgtableNamesExclusions?.ContainsKey(tableType) == true)
                         tableName = _pgtableNamesExclusions[tableType];
                     else
-                        // имена таблиц к одному стилю
+                        // table names to one style
                         tableName = g.Name.ToSnakeCase();
 
-                    // создаем генерик метод DbModelBuilder.Entity
+                    // create generic method DbModelBuilder.Entity
                     var entityRef = typeof(ModelBuilder)
                         .GetMethods(BindingFlags.Public | BindingFlags.Instance)
                         .Single(e =>
@@ -59,9 +71,8 @@ namespace Mekhnin.Shelter.Data.Shelter.Context
                             && e.GetParameters().Length == 0
                         )
                         .MakeGenericMethod(tableType);
-                    // инвокаем его
                     dynamic table = entityRef.Invoke(modelBuilder, null);
-                    // меняем имя таблицы. динамик тут для того, чтобы не усложнять код выведением генерик типов
+
                     RelationalEntityTypeBuilderExtensions.ToTable(table, tableName);
                 }
                 else
@@ -79,7 +90,7 @@ namespace Mekhnin.Shelter.Data.Shelter.Context
                 .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired();
 
-modelBuilder.Entity<Animal>()
+            modelBuilder.Entity<Animal>()
                 .HasKey(x => x.Id);
 
             modelBuilder.Entity<Animal>()

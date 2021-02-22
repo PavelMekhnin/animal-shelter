@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Mekhnin.Shelter.Api.Modules;
+using Mekhnin.Shelter.Data.Shelter.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -71,6 +72,9 @@ namespace Mekhnin.Shelter
             app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "Api"));
 
             this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
+
+            var context = new ShelterContext(Configuration);
+            context.Database.EnsureCreated();
         }
     }
 }
