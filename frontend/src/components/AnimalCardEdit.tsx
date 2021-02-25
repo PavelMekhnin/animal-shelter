@@ -66,7 +66,7 @@ interface mapStateToPropsType {
 
 const mapStateToProps = (state: AppState): mapStateToPropsType => {
     return {
-        animal: state.animals.animal,
+        animal: state.animals.currentAnimal,
         loading: state.app.loading
     }
 }

@@ -3,11 +3,13 @@ import { AnimalTypes } from "../types";
 import { IAction } from "../actions/animalAction";
 
 type AnimalReducerType = {
-    animal: IAnimalCard
+    animals: IAnimalCard[],
+    currentAnimal: IAnimalCard
 }
 
 const initState:  AnimalReducerType = {
-    animal: {} as IAnimalCard
+    animals: [],
+    currentAnimal: {} as IAnimalCard
 }
 
 export const animalReducer = (state: AnimalReducerType = initState, action: IAction) => {
@@ -17,7 +19,7 @@ export const animalReducer = (state: AnimalReducerType = initState, action: IAct
         case AnimalTypes.PUT_ANIMAL:
         case AnimalTypes.ARCHIVE_ANIMAL:
         case AnimalTypes.FETCH_ANIMAL:
-                return {...state, animal: action.payload};
+                return {...state, currentAnimal: action.payload};
             break;
 
         default:

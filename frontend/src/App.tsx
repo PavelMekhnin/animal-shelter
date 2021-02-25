@@ -9,7 +9,7 @@ import ShelterList from './components/ShelterList';
 import { connect } from 'react-redux';
 import { AnimalList } from './components/AnimalList';
 import AnimalCardEdit from './components/AnimalCardEdit';
-import ShelterProfileEditor from './components/ShelterProfileEditor';
+import { ShelterForm } from './components/ShelterForm';
 
 export const App : React.FC  = () =>{
 
@@ -23,7 +23,7 @@ export const App : React.FC  = () =>{
             <Route component={Home} path="/" exact></Route>
             <Route component={ShelterList} path="/search" exact></Route>
             <Route component={ShelterProfile} path="/shelter/:shelterid" exact></Route>
-            <Route component={ShelterProfileEditor} path="/shelter/:shelterid/edit" exact></Route>
+            <Route component={ShelterForm} path="/shelter/:shelterid/edit" exact></Route>
             <Route component={AnimalList} path="/shelter/:shelterid/pets" ></Route>
             <Route component={AnimalCard} path="/shelter/:shelterid/pet/:animalid" exact></Route>
             <Route component={AnimalCardEdit} path="/shelter/:shelterid/pet/:animalid/edit" exact></Route>

@@ -33,3 +33,7 @@ export enum AppTypes{
     SHOW_LOADER = "SHOW_LOADER",
     HIDE_LOADER = "HIDE_LOADER"
 }
+
+export enum FormTypes{
+    LOAD = "LOAD"
+}
