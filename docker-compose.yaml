@@ -1,0 +1,64 @@
+version: "3.9"
+
+volumes: 
+  pg_volume:
+
+services:
+  shelter-frontend:
+    build: frontend/
+    restart: always
+    stdin_open: true
+    tty: true
+    networks:
+      - shelternetwork
+    environment: 
+      - BACKEND=http://shelter-api
+      - VIRTUAL_HOST=shelter.local
+
+  shelter-api:
+    build: backend/
+    restart: always
+    depends_on: 
+      - shelter-db
+    networks:
+      - shelternetwork
+    environment: 
+      - VIRTUAL_HOST=shelter-api.local
+      - ASPNETCORE_ENVIRONMENT=Development
+      - PG_USER=admin
+      - PG_PASSWORD=password123
+      - PG_DBNAME=shelter
+      - PG_HOST=shelter-db
+
+  shelter-db:
+    image: postgres:latest
+    container_name: shelter-pg-db
+    restart: always
+    ports: 
+      - "5432:5432"
+    volumes: 
+      - pg_volume:/var/lib/postgresql/data
+    networks:
+      - shelternetwork
+    environment:
+      - POSTGRES_PASSWORD=password123
+      - POSTGRES_DB=shelter
+      - POSTGRES_USER=admin
+
+  nginx-proxy:
+    container_name: nginx-proxy
+    build:
+      context: nginx-proxy
+      dockerfile: Dockerfile
+    volumes:
+      - ./nginx-proxy/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+    networks:
+      - shelternetwork
+    links:
+      - shelter-frontend
+
+networks:
+  shelternetwork:
+    driver: bridge
