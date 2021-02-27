@@ -19,7 +19,7 @@ export type IAction = IFetchShelterAction | IFetchSheltersAction;
 export const fetchShelters = () => {
     return async (dispatch: Dispatch)  => {
         dispatch(showLoader() as any)
-        const response = await fetch("https://localhost:44300/api/shelters");
+        const response = await fetch("/api/shelters");
         const json = await response.json();
         dispatch<IFetchSheltersAction>({type: ShelterTypes.FETCH_SHELTERS, payload: json})
         dispatch(hideLoader() as any)
@@ -29,7 +29,7 @@ export const fetchShelters = () => {
 export const fetchShelter = (id: string) => {
     return async (dispatch: Dispatch)  => {
         dispatch(showLoader() as any)
-        const response = await fetch(`https://localhost:44300/api/shelters/${id}`);
+        const response = await fetch(`/api/shelters/${id}`);
         const json = await response.json();
         dispatch<IFetchShelterAction>({type: ShelterTypes.FETCH_SHELTER, payload: json})
         dispatch(hideLoader() as any)
@@ -40,7 +40,7 @@ export const putShelter = (id: number, data : IShelterCard) => {
     return async (dispatch: Dispatch)  => {
         dispatch(showLoader() as any)
         const json = JSON.stringify(data);
-        axios.put(`https://localhost:44300/api/shelters/${id}`, data)
+        axios.put(`/api/shelters/${id}`, data)
         .then(res => {dispatch<IFetchShelterAction>({type: ShelterTypes.PUT_SHELTER, payload: res.data})})
         dispatch(hideLoader() as any)
     }
