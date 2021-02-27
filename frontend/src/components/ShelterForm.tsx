@@ -64,15 +64,13 @@ const mapStateToProps = (state: AppState) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     fetch: () => {
         const route = params<RouteParams>();
         dispatch(fetchShelter(route.shelterid));
     }
- }
+ })
 
- type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
- 
 export default connect(
     mapStateToProps,
     mapDispatchToProps as any
