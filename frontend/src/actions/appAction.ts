@@ -8,6 +8,7 @@ export interface IChangeLoading  {
 
 export interface ILoadForm  {
     type: FormTypes,
+    data : any
 }
 
 export type IAction = IChangeLoading;
@@ -22,11 +23,5 @@ export const showLoader = () => {
 export const hideLoader = () => {
     return async (dispatch: Dispatch)  => {
         dispatch<IChangeLoading>({type: AppTypes.HIDE_LOADER})
-    }
-} 
-
-export const loadFormData = (data : any) =>{
-    return (dispatch: Dispatch) => {
-        dispatch({type :FormTypes.LOAD, data})
     }
 }

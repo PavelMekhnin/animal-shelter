@@ -1,46 +1,56 @@
-import { useParams as params } from "react-router-dom";
+import { useParams as params} from "react-router-dom";
 import React, { useState } from "react";
 import { IShelterCard } from "../interfaces/Interfaces";
 import { AppState } from "../reducers/rootReducer";
 import { connect } from "react-redux";
-import { Page404 } from "./404";
-import { fetchShelter } from "../actions/shelterActions";
 import { Dispatch } from "redux";
-import Form from "redux-form";
+import { fetchShelter } from "../actions/shelterActions";
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
-import { loadFormData } from "../actions/appAction";
 
 
 export interface IDispatchProps {
-    handleSubmit: () => any;
-    load: (data: IShelterCard) => void;
+    fetch : () => void;
 }
 
 const ShelterFormComponent = (props: IDispatchProps & InjectedFormProps<IShelterCard, IDispatchProps>) => {
-    const { handleSubmit, initialValues, load } = props 
-
-    load(initialValues as IShelterCard);
+    const { handleSubmit, initialValues, pristine, submitting, fetch } = props
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    if (!isLoading) {
+        fetch();
+        setIsLoading(true);
+    }
 
     return (
-        <div className="LoginFormWrapper">
-            <div className="bodyWrapper col s6">
-                <div className="input-field col s6">
-                    <Field component="input" name="title" type="text" className="validate" />
-                    <label htmlFor="title">Title</label>
-                </div>
-                <div className="input-field col s6">
-                    <Field component="textarea" name="description" type="textarea" className="materialize-textarea" />
-                    <label htmlFor="description">Description</label>
-                </div>
-                <div className="input-field col s6">
-                    <Field component="input" name="address" type="text" className="validate" />
-                    <label htmlFor="address">Address</label>
-                </div>
-                <button type="submit" className="btn" >
-                    Save
+        <form onSubmit={handleSubmit}>
+            <div className="container">
+                <div className="bodyWrapper col s6">
+                    <Field component="hidden" name="id" type="text" />
+                    <div className="input-field col s6">
+                        <Field component="input" name="title" type="text" className="validate" />
+                        <label htmlFor="title">Title</label>
+                    </div>
+                    <div className="input-field col s6">
+                        <Field component="textarea" name="description" type="textarea" className="materialize-textarea" />
+                        <label htmlFor="description">Description</label>
+                    </div>
+                    <div className="input-field col s6">
+                        <Field component="input" name="address" type="text" className="validate" />
+                        <label htmlFor="address">Address</label>
+                    </div>
+                    <div className="input-field col s6">
+                        <Field component="input" name="logoUrl" type="text" className="validate" />
+                        <label htmlFor="logoUrl">Logo</label>
+                    </div>
+                    <div className="input-field col s6">
+                        <Field component="input" name="coverUrl" type="text" className="validate" />
+                        <label htmlFor="coverUrl">Cover</label>
+                    </div>
+                    <button type="submit" className="btn" disabled={pristine || submitting}>
+                        Save
                 </button>
+                </div>
             </div>
-        </div>
+        </form>
     )
 }
 
@@ -54,14 +64,16 @@ const mapStateToProps = (state: AppState) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-    load: (data: IShelterCard) => {
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+    fetch: () => {
         const route = params<RouteParams>();
-        dispatch(loadFormData(data));
+        dispatch(fetchShelter(route.shelterid));
     }
-})
+ }
 
-export const ShelterForm = reduxForm<IShelterCard, IDispatchProps>({
-    form: 'shelterForm',
-    enableReinitialize : true
-  })(connect(mapStateToProps, mapDispatchToProps as any)(ShelterFormComponent));
+ type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+ 
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps as any
+)(reduxForm({ form: "ShelterFormComponent", enableReinitialize: true })(ShelterFormComponent as any));

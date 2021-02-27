@@ -9,7 +9,6 @@ import { connect } from "react-redux";
 import { Page404 } from "./404";
 import { fetchShelter } from "../actions/shelterActions";
 import { Dispatch } from "redux";
-import AnimalCard from "./AnimalCard";
 import { VolunteerCardList } from "./VolunteerCardList";
 
 export const ShelterProfile: React.FC<Props> = ({ shelter, loading, fetch }) => {

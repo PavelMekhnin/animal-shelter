@@ -9,7 +9,7 @@ import ShelterList from './components/ShelterList';
 import { connect } from 'react-redux';
 import { AnimalList } from './components/AnimalList';
 import AnimalCardEdit from './components/AnimalCardEdit';
-import { ShelterForm } from './components/ShelterForm';
+import ShelterForm from './components/ShelterForm';
 
 export const App : React.FC  = () =>{
 
