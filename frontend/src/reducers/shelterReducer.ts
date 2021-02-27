@@ -23,6 +23,10 @@ export const shelterReducer = (state: ShelterReducerType = initState, action: IA
                 return {...state, currentShelter: action.payload};
             break;
 
+            case ShelterTypes.PUT_SHELTER:
+                return {...state, currentShelter: action.payload};
+            break;
+
         default:
             return state;
             break;

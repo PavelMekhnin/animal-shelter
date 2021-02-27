@@ -4,16 +4,17 @@ import { IShelterCard } from "../interfaces/Interfaces";
 import { AppState } from "../reducers/rootReducer";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { fetchShelter } from "../actions/shelterActions";
+import { fetchShelter, putShelter } from "../actions/shelterActions";
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 
 
 export interface IDispatchProps {
     fetch : () => void;
+    put: (data: IShelterCard) => void;
 }
 
 const ShelterFormComponent = (props: IDispatchProps & InjectedFormProps<IShelterCard, IDispatchProps>) => {
-    const { handleSubmit, initialValues, pristine, submitting, fetch } = props
+    const { handleSubmit, initialValues, pristine, submitting, fetch , put} = props
     const [isLoading, setIsLoading] = useState<boolean>(false);
     if (!isLoading) {
         fetch();
@@ -21,7 +22,7 @@ const ShelterFormComponent = (props: IDispatchProps & InjectedFormProps<IShelter
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(put)}>
             <div className="container">
                 <div className="bodyWrapper col s6">
                     <Field component="hidden" name="id" type="text" />
@@ -68,6 +69,9 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     fetch: () => {
         const route = params<RouteParams>();
         dispatch(fetchShelter(route.shelterid));
+    },
+    put: (data : IShelterCard) => {
+        dispatch(putShelter(data.id, data))
     }
  })
 

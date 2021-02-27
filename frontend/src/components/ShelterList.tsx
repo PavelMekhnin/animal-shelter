@@ -2,8 +2,10 @@ import React, { Dispatch, useEffect, useState } from "react";
 import { AppState } from "../reducers/rootReducer";
 import { ShelterCardPreview } from "./ShelterCardPreview";
 import { connect, useDispatch } from "react-redux";
-import { fetchShelters } from "../actions/shelterActions";
+import { fetchShelters, putShelter } from "../actions/shelterActions";
 import { bindActionCreators, AnyAction } from "redux";
+import { IShelterCard } from "../interfaces/Interfaces";
+import { putAnimal } from "../actions/animalAction";
 
 const ShelterList: React.FC<Props> = ({ shelters, fetch, loading }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -59,6 +61,9 @@ const mapStateToProps = (state: AppState) => {
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     fetch: () => {
         dispatch(fetchShelters());
+    },
+    put: (data : IShelterCard) => {
+        dispatch(putShelter(data.id, data))
     }
 })
 
