@@ -14,16 +14,22 @@ export const ShelterCardPreview: React.FC<ShelterCardProps> = (card) => {
                 <Link to={url}>
                     <div className="row valign-wrapper">
                         <div className="col s2">
-                            <img src={card.card.logoUrl} alt="" className="circle responsive-img" />
+                            <div style={{backgroundImage: "url(" + card.card.logoUrl+ ")" }} className="circle square-img" />
                         </div>
                         <div className="col s10">
+                            <div className="row">
+                                <h5 className="orange-text">
+                                    {card.card.title}
+                                </h5>
+                            </div>
+                            <div className="row"></div>
                             <span className="black-text">
-                                {card.card.title}, Address: {card.card.address}
+                                {card.card.address}
                             </span>
                         </div>
                     </div>
                 </Link>
             </div>
-        </div>
+        </div >
     )
 }

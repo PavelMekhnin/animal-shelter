@@ -61,9 +61,6 @@ const mapStateToProps = (state: AppState) => {
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     fetch: () => {
         dispatch(fetchShelters());
-    },
-    put: (data : IShelterCard) => {
-        dispatch(putShelter(data.id, data))
     }
 })
 
