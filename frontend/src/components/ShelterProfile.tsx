@@ -14,6 +14,7 @@ import { VolunteerCardList } from "./VolunteerCardList";
 export const ShelterProfile: React.FC<Props> = ({ shelter, loading, fetch }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     var editUrl = `/shelter/${shelter.id}/edit`
+
     if (!isLoading) {
         fetch();
         setIsLoading(true);
@@ -40,9 +41,11 @@ export const ShelterProfile: React.FC<Props> = ({ shelter, loading, fetch }) => 
                 <div className="cover-img" style={{ backgroundImage: "url(" + shelter.coverUrl + ")" }}></div>
             </div>
             <div className="row">
-                <div className="col s3 grey lighten-5 center-align">
-                    <img className="circle logo-img z-depth-2" src={shelter.logoUrl} alt="" />
-                    <div className="row"><h5>{shelter.title}</h5></div>
+                <div className="shelter-profile_left-column col s3 grey lighten-5 center-align">
+                    <div className="circle square-img logo-img z-depth-2" style={{ backgroundImage: "url(" + shelter.logoUrl + ")" }} />
+                    <hr></hr>
+
+                    <div className="row orange-text"><h5>{shelter.title}</h5></div>
 
                     <hr></hr>
                     <div className="row">
@@ -55,17 +58,15 @@ export const ShelterProfile: React.FC<Props> = ({ shelter, loading, fetch }) => 
                     <div className="row">
                         <ContactsBlock list={shelter.contacts}></ContactsBlock>
                     </div>
-
-                    <hr></hr>
-                </div>
-                <div className="col s9">
                     <div className="row">
                         <Link to={editUrl} >
-                            <div className="btn">
+                            <div className="btn orange">
                                 Edit
                             </div>
                         </Link>
                     </div>
+                </div>
+                <div className="col s9">
                     <ShelterTabs shelter={shelter}></ShelterTabs>
                 </div>
             </div>
@@ -78,9 +79,9 @@ type ShelterHomeTabProps = {
 const ShelterHomeTab: React.FC<ShelterHomeTabProps> = ({ shelter }) => {
     return (
         <>
-            <div className="row">
-                <h5 className="center-align">A little bit about us</h5>
-                <p>{shelter.description}</p>
+            <div className="row" style={{ whiteSpace: "pre-line" }}>
+                <h5 className="center-align orange-text">A little bit about us</h5>
+                {shelter.description}
             </div>
         </>
     )
@@ -99,7 +100,7 @@ const ShelterTabs: React.FC<ShelterHomeTabProps> = ({ shelter }) => {
 
     return (
         <div id="tabs">
-            <ul className="tabs tabs-icon">
+            <ul className="tabs tabs-icon orange-text">
                 <li className="tab col s3"><a href="#home" className="active"><i className="material-icons">help</i>About</a></li>
                 <li className="tab col s3"><a href="#pets" ><i className="material-icons">pets</i>Animals</a></li>
                 <li className="tab col s3"><a href="#needs" ><i className="material-icons">format_list_bulleted</i>Needs</a></li>

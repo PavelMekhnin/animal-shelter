@@ -25,10 +25,10 @@ services:
     environment: 
       - VIRTUAL_HOST=shelter-api.local
       - ASPNETCORE_ENVIRONMENT=Development
-      - PG_USER=admin
       - PG_PASSWORD=password123
       - PG_DBNAME=shelter
       - PG_HOST=shelter-db
+      - PG_USER=shelter-app
 
   shelter-db:
     image: postgres:latest
@@ -43,7 +43,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=password123
       - POSTGRES_DB=shelter
-      - POSTGRES_USER=admin
+      - POSTGRES_USER=shelter-app
 
   nginx-proxy:
     container_name: nginx-proxy

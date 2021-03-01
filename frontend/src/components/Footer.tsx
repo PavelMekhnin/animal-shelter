@@ -1,7 +1,7 @@
 import React from "react";
 
 export const Footer : React.FC = () =>(
-    <footer className="page-footer grey darken-3">
+    <footer className="footer page-footer grey darken-4">
           <div className="container">
             <div className="row">
               <div className="col l6 s12">

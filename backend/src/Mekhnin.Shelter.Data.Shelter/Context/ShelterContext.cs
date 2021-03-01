@@ -26,8 +26,9 @@ namespace Mekhnin.Shelter.Data.Shelter.Context
             var dbHost = _configuration["PG_HOST"];
             var dbDatabaseName = _configuration["PG_DBNAME"];
             var dbPsw = _configuration["PG_PASSWORD"];
+            var dbUser = _configuration["PG_USER"];
 
-            optionsBuilder.UseNpgsql($"Host={dbHost};port=5432;Database={dbDatabaseName};Username=postgres;Password={dbPsw}");
+            optionsBuilder.UseNpgsql($"Host={dbHost};port=5432;Database={dbDatabaseName};Username={dbUser};Password={dbPsw}");
 
             base.OnConfiguring(optionsBuilder);
         }
