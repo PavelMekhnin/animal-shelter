@@ -36,6 +36,6 @@ chmod +x /usr/local/bin/docker-compose
 echo "Starting the application with docker-compose ..."
 cd animal-shelter
 
-export POSTGRES_PASSWORD={postgres_password}
+export POSTGRES_PASSWORD=${postgres_password}
 docker-compose up
 echo "The application has been started"
