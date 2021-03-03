@@ -25,7 +25,7 @@ services:
     environment: 
       - VIRTUAL_HOST=shelter-api.local
       - ASPNETCORE_ENVIRONMENT=Development
-      - PG_PASSWORD=password123
+      - PG_PASSWORD=${POSTGRES_PASSWORD}
       - PG_DBNAME=shelter
       - PG_HOST=shelter-db
       - PG_USER=shelter-app
@@ -41,7 +41,7 @@ services:
     networks:
       - shelternetwork
     environment:
-      - POSTGRES_PASSWORD=password123
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=shelter
       - POSTGRES_USER=shelter-app
 
