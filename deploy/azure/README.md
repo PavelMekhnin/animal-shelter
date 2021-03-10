@@ -11,6 +11,8 @@ In cmd run command ```az login``` and login in your Azure Account.
 
 To see more details about installation - open the folder with a solution you need.
 
+Download and install Terraform on your work pc from [official web-site](https://www.terraform.io/downloads.html).
+
 ## Existing solutions
 ### Simple
 
