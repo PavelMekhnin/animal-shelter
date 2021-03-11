@@ -10,11 +10,17 @@
 
 1) Open this folder in cmd or PowerShell
 
-2) Run command ```terraform init```
+2) Run command 
+```sh
+terraform init
+```
 
 3) Before running terraform deployment - variables should be modified in the file ```/variables.tf```. Raplace names of a source group and a ssh key with one's created before. Also change DNS address on your own.
 
-4) Run command ```terraform apply```
+4) Run command 
+```sh
+terraform apply
+```
 
 5) Terraform will ask you to type a password for PostgreSQL Database
 
@@ -22,6 +28,6 @@
 
 7) Also terraform will print list of the nameservers which have to be copied in the particular field in your DNS account
 
-8) In about 5-10 minutes the application will be available through your DNS address or the public IP
+8) Approximately in 5-10 minutes the application will be available through your DNS address or the public IP
 
 9) And now you are a happy owner of own shelter web-site!

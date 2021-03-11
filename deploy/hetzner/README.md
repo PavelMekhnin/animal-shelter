@@ -20,17 +20,21 @@ Generate a SSH key and add it to the Hetzner account.
 
 1) Open this folder in cmd or PowerShell
 
-2) Run command ```terraform init```
-
-3) Run command ```terraform apply```
-
+2) Run command 
+```sh
+terraform init
+```
+3) Run command 
+```sh
+terraform apply
+```
 4) Terraform will ask you to type several input variables:
 
-    *the API Key which you have created before
+    * the API Key which you have created before
 
-    *password to PostgreSQL
+    * password to PostgreSQL
     
-    *the SSH key which you have generated before;
+    * the SSH key which you have generated before;
 
 5) After terraform finish deployment you will see a public IP of VM with the application, which could be connected with your SSH Key
 
