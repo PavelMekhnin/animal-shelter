@@ -25,4 +25,4 @@ This project could be deployed with terraform in Microsoft Azure. Look for a ter
 [telegram-shield]: https://img.shields.io/badge/-Telegram-blue.svg?style=for-the-badge&logo=telegram&colorB=555
 [telegram-url]: https://t.me/PavelMekhnin
 [mail-shield]: https://img.shields.io/badge/-Gmail-orange.svg?style=for-the-badge&logo=gmail&colorB=555
-[mail-url]: pavel.mekhnin@gmail.com
+[mail-url]: mailto:pavel.mekhnin@gmail.com
