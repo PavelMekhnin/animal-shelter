@@ -5,26 +5,17 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+main {
+  flex: 1 0 auto;
 }
 
 .px1 {
   padding-left: 1rem;
   padding-right: 1rem;
-}
-
-.footer {
-  width: 100%;
-  position: relative;
-  height: auto;
-}
-
-.cont{
-  min-width: 960px;
 }
 
 .profile-bg{
@@ -62,6 +53,7 @@ code {
   background-image: url(/images/background.jpg);
   background-repeat: no-repeat;
   background-size: cover;
+  background-position-x: center;
   height: 450px;
   color: azure;
   display: grid;
@@ -73,12 +65,9 @@ code {
   overflow: hidden;
   border-radius: 50%;
 }
-h1{
-  text-transform: uppercase;
-}
 
-.home-block-body{
-  height: 400px;
+h2{
+  text-transform: uppercase;
 }
 
 .promo-icon{

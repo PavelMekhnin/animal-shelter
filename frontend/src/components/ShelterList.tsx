@@ -19,14 +19,14 @@ const ShelterList: React.FC<Props> = ({ shelters, fetch, loading }) => {
     return (
         <div className="container">
             <div className="row">
-                <input type="search" name="" id="search" placeholder="Поиск..." />
+                <input type="search" name="" id="search" placeholder="Search..." />
             </div>
             {
                 loading  == false ? (
                     <div className="row">
                         {
                             shelters.length == 0 ? (
-                                <h1>Couldn't find any shelter :(</h1>
+                                <h3>Sorry. Couldn't find any shelter :(</h3>
                             )
                                 :
                                 (

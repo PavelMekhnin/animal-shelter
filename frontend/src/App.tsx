@@ -18,7 +18,7 @@ export const App : React.FC  = () =>{
         <header>
           <Navbar />
         </header>
-        <main className="cont">
+        <main>
           <Switch>
             <Route component={Home} path="/" exact></Route>
             <Route component={ShelterList} path="/search" exact></Route>
