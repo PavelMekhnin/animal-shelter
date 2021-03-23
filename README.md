@@ -2,6 +2,8 @@
 
 This project was developed by Pavel Mekhnin as a volunteer work for existing shelter and for demostrating skills in web development and administration.
 
+Current result could be seen on [animal-shelter.ga](http://animal-shelter.ga/).
+
 ## How to deploy
 
 This project can be deployed easily in a cloud with a bash script which could be used as a user data for a new virtual machine.
