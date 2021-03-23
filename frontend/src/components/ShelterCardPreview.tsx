@@ -9,14 +9,14 @@ type ShelterCardProps = {
 export const ShelterCardPreview: React.FC<ShelterCardProps> = (card) => {
     const url = `/shelter/${card.card.id}`
     return (
-        <div className="col s12">
-            <div className="card-panel grey lighten-5 z-depth-1">
-                <Link to={url}>
+        <Link to={url}>
+            <div className="col s12 l6">
+                <div className="card-panel grey lighten-5 z-depth-1">
                     <div className="row valign-wrapper">
-                        <div className="col s2">
-                            <div style={{backgroundImage: "url(" + card.card.logoUrl+ ")" }} className="circle square-img" />
+                        <div className="col">
+                            <div style={{ backgroundImage: "url(" + card.card.logoUrl + ")" }} className="circle square-img logo" />
                         </div>
-                        <div className="col s10">
+                        <div className="col">
                             <div className="row">
                                 <h5 className="orange-text">
                                     {card.card.title}
@@ -28,8 +28,8 @@ export const ShelterCardPreview: React.FC<ShelterCardProps> = (card) => {
                             </span>
                         </div>
                     </div>
-                </Link>
-            </div>
-        </div >
+                </div>
+            </div >
+        </Link>
     )
 }

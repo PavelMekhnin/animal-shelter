@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Mekhnin.Shelter.Data.Shelter
+﻿namespace Mekhnin.Shelter.Data.Shelter
 {
+    /// <summary>
+    /// Base interface-marker for entity
+    /// </summary>
     public interface IEntity
     {
     }

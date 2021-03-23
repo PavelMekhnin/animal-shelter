@@ -9,30 +9,29 @@ type AnimalList = {
     shelterId: string
 }
 
-export const AnimalCardList: React.FC<AnimalList> = ({ list, shelterId }) => {
-    if (list == null || list.length == 0) {
-        return (<span>The shelter does not have any animals yet :(</span>)
-    }
-    var link = `/shelter/${shelterId}/pets`
+export const AnimalCardList = (data: AnimalList) => {
+    var exists = data.list != null && data.list.length > 0;
+    var link = `/shelter/${data.shelterId}/pets`
     return (
         <>
-        <div>
-            <div className="row">
-                <h5 className="center-align">Our animals</h5>
+            <div className="shelter-profile_tabs_tab">
+                <div className="row">
+                    <h5 className="center-align orange-text">Our animals</h5>
+                </div>
+                <div className="row">
+                    {exists ?
+                        data.list.slice(0, 4).map(card => {
+                            return (
+                                <div className="col s6">
+                                    <AnimalCardPreview card={card} shelterId={data.shelterId} key={card.id}></AnimalCardPreview>
+                                </div>
+                            )
+                        })
+                        :
+                        <p>We do not have any animals yet ;(</p>
+                    }
+                </div>
             </div>
-            <div className="row">
-                {list.slice(0, 4).map(card => {
-                    return (
-                        <div className="col s6">
-                            <AnimalCardPreview card={card} shelterId={shelterId} key={card.id}></AnimalCardPreview>
-                        </div>
-                    )
-                })
-                }
-                <Link to={link}>See all</Link>
-            </div>
-
-        </div>
         </>
     )
 }

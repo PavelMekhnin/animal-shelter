@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams as params, useHistory } from "react-router-dom";
 import { AppState } from "../reducers/rootReducer";
 import { connect } from "react-redux";
-import { Page404 } from "./404";
+import { Page404 } from "../pages/404";
 import { fetchAnimal, postAnimal } from "../actions/animalAction";
 import { Dispatch } from "redux";
 import { IAnimalCard } from "../interfaces/Interfaces";

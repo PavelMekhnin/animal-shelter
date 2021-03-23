@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Mekhnin.Shelter.Context.Shelter.Repositories
 {
+
     internal class NeedRepository
         : BaseSoftDeleteRepository<NeedModel, Data.Shelter.Entities.Need, int, ShelterContext>,
             INeedRepository

@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace Mekhnin.Shelter.Data.Shelter.Context
 {
+    /// <summary>
+    /// Shelter Db context
+    /// </summary>
     public class ShelterContext : DbContext
     {
         private readonly IConfiguration _configuration;
@@ -39,6 +42,7 @@ namespace Mekhnin.Shelter.Data.Shelter.Context
             {
                 foreach (var property in entity.GetProperties())
                 {
+                    // Convert all names to snake_case due to PostgreSQL conventions
                     property.SetColumnName(property.GetColumnName().ToSnakeCase());
                 }
             }

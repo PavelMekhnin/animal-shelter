@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams as params, Link } from "react-router-dom";
 import { VolunteerCardList } from "./VolunteerCardList";
-import { AnimalNeeds } from "./AnimalNeeds";
+import { AnimalNeedsList } from "./AnimalNeedsList";
 import { AppState } from "../reducers/rootReducer";
 import { connect } from "react-redux";
-import { Page404 } from "./404";
+import { Page404 } from "../pages/404";
 import { fetchAnimal } from "../actions/animalAction";
 import { Dispatch } from "redux";
 import { IAnimalCard } from "../interfaces/Interfaces";
@@ -61,7 +61,7 @@ const AnimalCard: React.FC<Props> = ({ animal, loading, fetch }) => {
                     </div>
                     <div className="row">
                         <h5>Needs</h5>
-                        <AnimalNeeds list={animal.needs}></AnimalNeeds>
+                        <AnimalNeedsList list={animal.needs}></AnimalNeedsList>
                     </div>
                 </div>
             </div>

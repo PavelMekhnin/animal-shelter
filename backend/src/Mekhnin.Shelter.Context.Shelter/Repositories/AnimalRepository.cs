@@ -11,6 +11,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Mekhnin.Shelter.Context.Shelter.Repositories
 {
+    /// <summary>
+    /// Animal soft-delete repository
+    /// </summary>
     internal class AnimalRepository 
         : BaseSoftDeleteRepository<AnimalModel, Data.Shelter.Entities.Animal, int, ShelterContext>,
         IAnimalRepository

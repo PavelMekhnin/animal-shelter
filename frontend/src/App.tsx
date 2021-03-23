@@ -1,22 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Navbar } from "./components/Navbar";
-import { Footer } from './components/Footer';
-import ShelterProfile from './components/ShelterProfile';
-import { Home } from './components/Home';
+import { Header } from "./parts/Header";
+import { Footer } from './parts/Footer';
+import ShelterProfile from './pages/ShelterProfile';
+import { Home } from './pages/Home';
 import AnimalCard from './components/AnimalCard';
-import ShelterList from './components/ShelterList';
+import ShelterList from './pages/ShelterList';
 import { connect } from 'react-redux';
 import { AnimalList } from './components/AnimalList';
 import AnimalCardEdit from './components/AnimalCardEdit';
 import ShelterForm from './components/ShelterForm';
 
-export const App : React.FC  = () =>{
+export const App: React.FC = () => {
 
-    return (
-      <BrowserRouter>
+  return (
+    <BrowserRouter>
+      <div className="page-flexbox-wrapper">
         <header>
-          <Navbar />
+          <Header />
         </header>
         <main>
           <Switch>
@@ -30,8 +31,9 @@ export const App : React.FC  = () =>{
           </Switch>
         </main>
         <Footer />
-      </BrowserRouter>
-    );
+      </div>
+    </BrowserRouter>
+  );
 }
 
 export default connect(null, null)(App);

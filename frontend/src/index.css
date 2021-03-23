@@ -7,10 +7,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
   display: flex;
   min-height: 100vh;
+  min-width: 400px;
   flex-direction: column;
 }
-main {
-  flex: 1 0 auto;
+
+.page-flexbox-wrapper{
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+main{
+  flex: 1 1 auto;
 }
 
 .px1 {
@@ -32,7 +39,7 @@ main {
 }
 
 .cover-img{
-  height: 15rem;
+  height: 18rem;
   width: 100%;
   background-size:cover;
   background-position:center;
@@ -117,10 +124,6 @@ img.bg {
   padding: 0 !important
 }
 
-.shelter-profile_left-column{
-  min-height: 200px;
-}
-
 .square-img {
   float:left;
   position: relative;
@@ -130,3 +133,29 @@ img.bg {
   background-repeat:no-repeat;
   background-size:cover; /* you change this to "contain" if you don't want the images to be cropped */
 }
+
+.logo{
+  width: 6rem;
+}
+
+.shelter-profile_tabs_tab{
+  min-height: 10em;
+}
+
+.tabs .tab a{
+  color:#ff9800;
+} /*Black color to the text*/
+
+.tabs .tab a:hover {
+  background-color:#eee;
+  color:#ff9800;
+} /*Text color on hover*/
+
+.tabs .tab a.active {
+  background-color:#fdefd8;
+  color:#ff9800;
+} /*Background and text color when a tab is active*/
+
+.tabs .indicator {
+  background-color:#ff9800;
+} /*Color of underline*/

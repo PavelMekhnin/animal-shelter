@@ -11,6 +11,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Mekhnin.Shelter.Context.Shelter.Repositories
 {
+    /// <summary>
+    /// Volunteer soft-delete repository
+    /// </summary>
     internal class VolunteerRepository 
         : BaseSoftDeleteRepository<VolunteerModel, Data.Shelter.Entities.Volunteer, int, ShelterContext>,
         IVolunteerRepository

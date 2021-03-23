@@ -5,6 +5,9 @@ using Mekhnin.Shelter.Data.Shelter.Context;
 
 namespace Mekhnin.Shelter.Context.Shelter.Repositories
 {
+    /// <summary>
+    /// Shelter soft-delete repository
+    /// </summary>
     internal class ShelterRepository 
         : BaseSoftDeleteRepository<ShelterModel, Data.Shelter.Entities.Shelter, int, ShelterContext>,
             IShelterRepository

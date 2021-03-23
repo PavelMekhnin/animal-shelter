@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Mekhnin.Shelter.Context.Shelter.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +16,7 @@ namespace Mekhnin.Shelter.Context.Shelter
         {
             _configuration = configuration;
         }
+
         public TDbContext Create()
         {
             var context = (TDbContext)Activator.CreateInstance(typeof(TDbContext), _configuration);

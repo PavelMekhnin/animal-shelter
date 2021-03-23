@@ -38,6 +38,11 @@ namespace Mekhnin.Shelter.Data.Shelter.Extends
 		public static PropertyBuilder<decimal> HasPrecision(this PropertyBuilder<decimal> builder, int precision, int scale)
 			=> builder.HasColumnType($"decimal({precision},{scale})");
 
+		/// <summary>
+		/// Convert CamelCase to snake_case
+		/// </summary>
+		/// <param name="input">Origin CamelCase string</param>
+		/// <returns>snake_case version of the origin string</returns>
 		public static string ToSnakeCase(this string input)
 		{
 			if (string.IsNullOrEmpty(input)) { return input; }

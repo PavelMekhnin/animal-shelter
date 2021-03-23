@@ -7,6 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Mekhnin.Shelter.Context.Shelter
 {
+    /// <summary>
+    /// Base repository for entity with identity field
+    /// </summary>
+    /// <typeparam name="TM">Type of model</typeparam>
+    /// <typeparam name="TE">Type of entity</typeparam>
+    /// <typeparam name="TIdentity">Type of identity field</typeparam>
+    /// <typeparam name="TContext">Type of context</typeparam>
     internal abstract class BaseIdentityRepository<TM, TE, TIdentity, TContext>
         : BaseRepository<TM, TE, TContext>,
         IIdentityRepository<TM, TE, TIdentity>

@@ -1,16 +1,12 @@
-import React, { Dispatch, useEffect, useState } from "react";
+import React, { Dispatch, useState } from "react";
 import { AppState } from "../reducers/rootReducer";
-import { ShelterCardPreview } from "./ShelterCardPreview";
-import { connect, useDispatch } from "react-redux";
-import { fetchShelters, putShelter } from "../actions/shelterActions";
-import { bindActionCreators, AnyAction } from "redux";
-import { IShelterCard } from "../interfaces/Interfaces";
-import { putAnimal } from "../actions/animalAction";
+import { ShelterCardPreview } from "../components/ShelterCardPreview";
+import { connect } from "react-redux";
+import { fetchShelters } from "../actions/shelterActions";
 
 const ShelterList: React.FC<Props> = ({ shelters, fetch, loading }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    
-  
+      
       if(!isLoading){
         fetch();
         setIsLoading(true);
@@ -19,12 +15,14 @@ const ShelterList: React.FC<Props> = ({ shelters, fetch, loading }) => {
     return (
         <div className="container">
             <div className="row">
-                <input type="search" name="" id="search" placeholder="Search..." />
+                <div  className="input-field ">
+                    <i className="material-icons prefix">search</i><input type="search" name="" id="search" placeholder="Search..." />
+                </div>
             </div>
             {
-                loading  == false ? (
+                loading == false ? (
                     <div className="row">
-                        {
+                        {                    
                             shelters.length == 0 ? (
                                 <h3>Sorry. Couldn't find any shelter :(</h3>
                             )
@@ -36,7 +34,6 @@ const ShelterList: React.FC<Props> = ({ shelters, fetch, loading }) => {
                                         )
                                     })
                                 )
-
                         }
                     </div>
                 ) : (
@@ -54,7 +51,7 @@ const ShelterList: React.FC<Props> = ({ shelters, fetch, loading }) => {
 const mapStateToProps = (state: AppState) => {
     return {
         shelters: state.shelters.shelters,
-        loading: false
+        loading: state.app.loading
     }
 }
 

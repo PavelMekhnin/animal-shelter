@@ -6,21 +6,23 @@ type VolunteerList = {
     list: IVolunteerCard[]
 }
 
-export const VolunteerCardList: React.FC<VolunteerList> = ({ list}) => {
-    if (list == null || list.length == 0) {
-        return (<span>No volunteers yet :(</span>)
-    }
+export const VolunteerCardList = (data : VolunteerList) => {
+    var exists = data.list != null && data.list.length > 0;
     return (
         <>
-            <div>
-                {list.map(card => {
+            <div className="shelter-profile_tabs_tab">       
+            <div className="row">
+                <h5 className="center-align orange-text">Our volunteers</h5>
+            </div>         
+                {exists ?
+                data.list.map(card => {
                     return (
                         <VolunteerCardPreview card={card}></VolunteerCardPreview>
                     )
                 })
+                : <p>We do not have any volunteers yet ;(</p>
                 }
             </div>
         </>
     )
-
 }
