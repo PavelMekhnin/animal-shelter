@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  min-height: 100vh;
+  min-width: 400px;
+  flex-direction: column;
+}
+
+.page-flexbox-wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 1 auto;
+}
+
+.px1 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.col .row {
+  margin: 0rem;
+}
+
+h2 {
+  text-transform: uppercase;
+}
+
+.no-padding {
+  padding: 0 0 0 0;
+}
+
+.square-img {
+  float: left;
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%; /* = width for a 1:1 aspect ratio */
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover; /* you change this to "contain" if you don't want the images to be cropped */
+}
+
+.logo {
+  width: 6rem;
+}

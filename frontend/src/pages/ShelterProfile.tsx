@@ -11,6 +11,7 @@ import { fetchShelter } from "../actions/shelterActions";
 import { Dispatch } from "redux";
 import { VolunteerCardList } from "../components/VolunteerCardList";
 import { ShelterHomeTab } from "../components/ShelterHomeTab";
+import '../styles/shelter.scss';
 
 export const ShelterProfile: React.FC<Props> = ({ shelter, loading, fetch }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);

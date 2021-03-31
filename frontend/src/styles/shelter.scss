@@ -1,0 +1,79 @@
+.profile {
+    &_background {
+        height: 200px;
+    }
+
+    &_left {
+        height: auto;
+    }
+
+    .logo-img {
+        margin-top: -50%;
+    }
+}
+
+.cover-img {
+    height: 18rem;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+.left-info-block {
+    overflow-wrap: break-word;
+
+    span {
+        text-decoration: underline;
+        color: gray;
+    }
+    h5 {
+        margin-top: 0rem;
+    }
+}
+
+.shelter-profile_tabs_tab {
+    min-height: 10em;
+}
+
+.tabs {
+    .tab {
+        min-width: 50px !important;
+
+        a {
+            color: #ff9800;
+        }
+
+        a:hover {
+            background-color: #eee;
+            color: #ff9800;
+        }
+
+        a.active {
+            background-color: #fdefd8;
+            color: #ff9800;
+        }
+    }
+
+    .indicator {
+        background-color: #ff9800;
+    }
+
+    .tab-hide {
+        display: none;
+    }
+}
+.tabs-icon {
+    font-size: 10px;
+    overflow: hidden;
+
+    a.active {
+        background-color: #f3f3f3;
+    }
+
+    i {
+        display: block;
+        margin-top: 5px;
+        margin-bottom: -15px;
+        font-size: 24px;
+    }
+}
