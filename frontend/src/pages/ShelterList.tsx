@@ -3,6 +3,7 @@ import { AppState } from "../reducers/rootReducer";
 import { ShelterCardPreview } from "../components/ShelterCardPreview";
 import { connect } from "react-redux";
 import { fetchShelters } from "../actions/shelterActions";
+import '../styles/search.scss';
 
 const ShelterList: React.FC<Props> = ({ shelters, fetch, loading }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
