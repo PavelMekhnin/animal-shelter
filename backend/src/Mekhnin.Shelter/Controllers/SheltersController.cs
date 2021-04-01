@@ -50,6 +50,12 @@ namespace Mekhnin.Shelter.Api.Controllers
         {
             var model = await _shelterService.GetShelterAsync(id, cancellationToken);
 
+            if (model == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+
             return _shelterViewModelMapper.Map(model);
         }
 
