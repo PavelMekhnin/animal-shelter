@@ -11,7 +11,7 @@ namespace Mekhnin.Shelter.ViewDto
         public string LogoUrl { get; set; }
         public string CoverUrl { get; set; }
         public List<VolunteerCardPreview> Volunteers { get; set; }
-        public List<AnimalCardPreview> Animals { get; set; }
+        public List<AnimalCard> Animals { get; set; }
         public List<Need> Needs { get; set; }
         public List<Contact> Contacts { get; set; }
     }
