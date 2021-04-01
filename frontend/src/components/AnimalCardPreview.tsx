@@ -4,7 +4,7 @@ import { IAnimalCard } from "../interfaces/Interfaces";
 
 type AnimalCardProps = {
     card: IAnimalCard,
-    shelterId : string
+    shelterId: string
 }
 
 export const AnimalCardPreview = (data: AnimalCardProps) => {
@@ -13,13 +13,13 @@ export const AnimalCardPreview = (data: AnimalCardProps) => {
         <div className="animal-card">
             <div className="row">
                 <div className="col s12">
-                    <div className="card small">
+                    <div className="card">
                         <div className="card-image">
                             <img src={data.card.imgUrl} className="activator" />
+                            <span className="card-title">{data.card.name}</span>
                         </div>
-                        <div className="card-content">
-                            <span className="card-title grey-text text-darken-4">{data.card.name}</span>
-                            <p><Link to={url}>More</Link></p>
+                        <div className="card-action">
+                            <Link to={url}>More</Link>
                         </div>
                     </div>
                 </div>

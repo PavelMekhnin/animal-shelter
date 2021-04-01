@@ -22,7 +22,7 @@ export const AnimalCardList = (data: AnimalList) => {
                     {exists ?
                         data.list.slice(0, 4).map(card => {
                             return (
-                                <div className="col s6">
+                                <div className="col s6 m6 l4">
                                     <AnimalCardPreview card={card} shelterId={data.shelterId} key={card.id}></AnimalCardPreview>
                                 </div>
                             )
