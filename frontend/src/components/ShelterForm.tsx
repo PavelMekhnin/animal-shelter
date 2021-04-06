@@ -14,7 +14,7 @@ export interface IDispatchProps {
 }
 
 const ShelterFormComponent = (props: IDispatchProps & InjectedFormProps<IShelterCard, IDispatchProps>) => {
-    const { handleSubmit, initialValues, pristine, submitting, fetch , put} = props
+    const { handleSubmit, pristine, submitting, fetch , put} = props
     const [isLoading, setIsLoading] = useState<boolean>(false);
     if (!isLoading) {
         fetch();

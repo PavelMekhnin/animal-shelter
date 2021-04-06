@@ -1,4 +1,4 @@
-import { useParams as params, Route, Link } from "react-router-dom";
+import { useParams as params, Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { IShelterCard } from "../interfaces/Interfaces";
 import { AnimalCardList } from "../components/AnimalCardList";
@@ -23,7 +23,7 @@ export const ShelterProfile: React.FC<Props> = ({ shelter, loading, fetch }) => 
     }
 
     if (shelter.id == null) {
-        if (loading == false) {
+        if (loading === false) {
             return (
                 <Page404></Page404>
             )

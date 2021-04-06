@@ -2,7 +2,6 @@ import React from 'react';
 import { IAnimalCard } from '../interfaces/Interfaces';
 import { AnimalCardPreview } from './AnimalCardPreview';
 import { Link } from 'react-router-dom';
-import { AnimalList } from './AnimalList';
 
 type AnimalList = {
     list: IAnimalCard[],
@@ -20,16 +19,21 @@ export const AnimalCardList = (data: AnimalList) => {
                 </div>
                 <div className="row">
                     {exists ?
-                        data.list.slice(0, 4).map(card => {
+                        (data.list.slice(0, 6).map(card => {
                             return (
-                                <div className="col s6 m6 l4">
+                                <div className="col s6 m6 l4" key={card.id}>
                                     <AnimalCardPreview card={card} shelterId={data.shelterId} key={card.id}></AnimalCardPreview>
                                 </div>
                             )
                         })
+
+                        )
                         :
                         <p>We do not have any animals yet ;(</p>
                     }
+                </div>
+                <div className="row">
+                    {exists && <Link to={link} >More</Link>}
                 </div>
             </div>
         </>

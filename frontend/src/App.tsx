@@ -7,7 +7,7 @@ import { Home } from './pages/Home';
 import AnimalCard from './components/AnimalCard';
 import ShelterList from './pages/ShelterList';
 import { connect } from 'react-redux';
-import { AnimalList } from './components/AnimalList';
+import AnimalList from './pages/AnimalList';
 import AnimalCardEdit from './components/AnimalCardEdit';
 import ShelterForm from './components/ShelterForm';
 

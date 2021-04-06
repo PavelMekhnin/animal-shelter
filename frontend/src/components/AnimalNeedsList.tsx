@@ -18,7 +18,7 @@ export const AnimalNeedsList = (data: AnimalNeedsProps) => {
                     <ul className="collapsible">
                         {data.list.map(need => {
                             return (
-                                <li id={need.id.toString()}>
+                                <li id={need.id.toString()} key={need.id}>
                                     <div className="collapsible-header">
                                         <i className="material-icons">local_hospital</i>
                                         {need.title}

@@ -15,7 +15,7 @@ export const AnimalCardPreview = (data: AnimalCardProps) => {
                 <div className="col s12">
                     <div className="card">
                         <div className="card-image">
-                            <img src={data.card.imgUrl} className="activator" />
+                            <img src={data.card.imgUrl} className="activator" alt={data.card.description}/>
                             <span className="card-title">{data.card.name}</span>
                         </div>
                         <div className="card-action">
